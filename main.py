@@ -7,3 +7,5 @@ def index():
     return app.send_static_file('index.html')
 
 app.run(port=8000, debug=True)
+
+#gitって編集せなaddできないんですか
