@@ -1,11 +1,18 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 {% block content %}
-<form method="post" action="/send" enctype="multipart/form-data">
-    <input type="file" id="img_file" name="img_file" class="col-sm-4">
-    <input type="submit" value="送信" class="btn">
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/png, image/jpeg">
+    <button type="submit">submit</button>
 </form>
 
-{% if img_url %}
-<p><img src="{{ img_url }}"></p>
+{% if images %}
+{% for path in images %}
+<div>
+    <img src="images/{{ path }}" style="margin-top: 10px; vertical-align: bottom; width: 200px;">
+    {{ path }}
+</div>
+{% endfor %}
 {% endif %}
+
 {% endblock %}
