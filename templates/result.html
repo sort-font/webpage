@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<!DOCTYPE html>
+<title>nemonemofont</title>
+{% if fontName %}
+  <h1>これは {{ fontName }} です</h1>
+  <a href="./">トップへ戻る</a>
+{% else %}
+  <a href="./">トップへ戻る</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+h2 {
+  color: aqua;
+}
+
+.btn {
+  background-color: aqua;
+  margin: 10px 10px;
+}
+
+h1{
+  font-size: 30px;
+  text-align: center;
+  color: aqua;
+}
+
+form {
+  text-align: center;
+
+}
+
+input {
+  color: aqua
+}
