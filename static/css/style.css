@@ -1,16 +1,16 @@
 h2 {
-  color: aqua;
+  color: black;
 }
 
 .btn {
-  background-color: aqua;
+  background-color: lightblue;
   margin: 10px 10px;
 }
 
 h1{
   font-size: 30px;
   text-align: center;
-  color: aqua;
+  color: black;
 }
 
 form {
@@ -19,5 +19,5 @@ form {
 }
 
 input {
-  color: aqua
+  color: black;
 }
