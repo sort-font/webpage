@@ -1,19 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>フォント判定</h1>
-<form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="image" accept="image/png, image/jpeg">
-    <button type="submit" class="btn">submit</button>
-</form>
+<div class="ui vertical masthead center aligned segment">
+    <h1>フォント判定</h1>
+    <form class="ui left action input" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/png, image/jpeg">
+        <button type="submit" class="ui button">submit</button>
+    </form>
+</div>
 
 {% if images %}
-{% for path in images %}
-<div>
-    <img src="images/{{ path }}" style="margin-top: 10px; vertical-align: bottom; width: 200px;">
-    {{ path }}
-    <h2 >nemonemo</h2>
+<div class="ui centered link cards">
+    {% for path in images %}
+    <!-- ref: https://semantic-ui.com/views/card.html -->
+    <div class="card">
+        <div class="image">
+            <img src="/static/images/{{ path }}">
+        </div>
+        <div class="content">
+            <div class="description">
+                {{ path }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 {% endif %}
-
 {% endblock %}

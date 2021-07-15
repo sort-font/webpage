@@ -3,7 +3,6 @@ import numpy as np
 from keras.models import model_from_json
 import pickle
 
-list_row = None
 with open("list_row.txt", "rb") as f:
   list_row = pickle.load(f)
 
