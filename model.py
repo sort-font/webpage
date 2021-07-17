@@ -19,4 +19,11 @@ def predict_font(img):
 
   pred = model.predict(im_resized)
 
-  return list_row[np.argmax(pred)]
+  try:
+    font_name = list_row[np.argmax(pred)]
+    idx = font_name.find(".")
+    r = font_name[:idx]
+  except:
+    r = "エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。"
+  
+  return r
