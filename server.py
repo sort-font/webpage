@@ -2,10 +2,10 @@
 
 from flask import Flask, render_template, request, url_for
 import numpy as np
-from datetime import datetime
 import cv2
 import os
 import model
+import uuid
 
 
 app = Flask(__name__, static_url_path="/static")
@@ -26,9 +26,13 @@ def upload():
         stream = request.files['image'].stream
         img_array = np.asarray(bytearray(stream.read()), dtype=np.uint8)
         img = cv2.imdecode(img_array, 1)
-        fontName = model.predict_font(img)
+        font_name = model.predict_font(img)
 
-        return render_template('result.html', fontName=fontName)
+        if font_name == None:
+            return render_template('result.html', fontName='"エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。')
+        
+        cv2.imwrite(os.path.join(SAVE_DIR, font_name + '_' + str(uuid.uuid4()) + '.png'), img)
+        return render_template('result.html', fontName=font_name)
 
 @app.context_processor
 def override_url_for():

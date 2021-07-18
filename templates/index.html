@@ -1,28 +1,44 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="ui vertical masthead center aligned segment">
+<div class="ui center aligned segment">
     <h1>フォント判定</h1>
-    <form class="ui left action input" action="/upload" method="post" enctype="multipart/form-data">
+    <form
+        class="ui action input"
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+        onsubmit="onloading()"
+    >
         <input type="file" name="image" accept="image/png, image/jpeg">
         <button type="submit" class="ui button">submit</button>
     </form>
 </div>
 
 {% if images %}
-<div class="ui centered link cards">
-    {% for path in images %}
-    <!-- ref: https://semantic-ui.com/views/card.html -->
-    <div class="card">
-        <div class="image">
-            <img src="/static/images/{{ path }}">
-        </div>
-        <div class="content">
-            <div class="description">
-                {{ path }}
+<div class="ui center aligned segment">
+    <h1>過去に判定されたフォント集</h1>
+    <div class="ui link centered cards">
+        {% for path in images %}
+        <!-- ref: https://semantic-ui.com/views/card.html -->
+        <div class="card">
+            <div class="image">
+                <img src="/static/images/{{ path }}">
+            </div>
+            <div class="content">
+                <div class="description">
+                    {{ path[:path.find('_')] }}
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endif %}
+
+<script type="text/javascript">
+function onloading() {
+    document.querySelector('div').className += ' loading';
+}
+</script>
+
 {% endblock %}

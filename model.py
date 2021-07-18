@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 from keras.models import model_from_json
-import pickle
+import pickle, sys
 
 with open("list_row.txt", "rb") as f:
   list_row = pickle.load(f)
@@ -23,7 +23,8 @@ def predict_font(img):
     font_name = list_row[np.argmax(pred)]
     idx = font_name.find(".")
     r = font_name[:idx]
-  except:
-    r = "エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。"
+  except Exception as e:
+    print(e, file=sys.stderr)
+    r = None
   
   return r
