@@ -1,7 +1,7 @@
 # sort-font
 このアプリケーションは、入力された文字画像に使われているフォントと似ているフォントを提示するアプリケーションです。
 
-![demo.gif](./demo.gif)
+![demo.gif](./assets/demo.gif)
 
 ## 実行方法
 ### Windows

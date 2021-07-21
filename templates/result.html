@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-<!DOCTYPE html>
-<title>nemonemofont</title>
-{% if fontName %}
+<div class="ui center aligned segment">
+  {% if fontName %}
   <h1>これは {{ fontName }} です</h1>
   <a href="./">トップへ戻る</a>
-{% else %}
+  {% else %}
   <a href="./">トップへ戻る</a>
-{% endif %}
-
+  {% endif %}
+</div>
 {% endblock %}
