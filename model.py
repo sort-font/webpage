@@ -6,11 +6,11 @@ import pickle, sys
 with open("list_row.txt", "rb") as f:
   list_row = pickle.load(f)
 
-with open("model_400_epochs.model", 'r') as f:
+with open("model_.model", 'r') as f:
     json_string = f.read()
 model = model_from_json(json_string)
 
-model.load_weights('param_400_epochs.hdf5')
+model.load_weights('param.hdf5')
 
 
 def predict_font(img):
