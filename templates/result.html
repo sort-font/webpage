@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="ui center aligned segment">
+<div class="ui aligned segment">
   {% if fontName %}
-  <h1>これは {{ fontName }} です</h1>
+    <div class="ui relaxed list">
+    {% for name in fontName %}
+    <div class="item">{{ loop.index }}番目: {{ name }}</div>  
+    {% endfor %}
+    </div>
   <a href="./">トップへ戻る</a>
   {% else %}
   <a href="./">トップへ戻る</a>
