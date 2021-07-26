@@ -20,7 +20,6 @@ def predict_font(img):
   
   try:
     font_name = list_row[np.argmax(pred)]
-    print(np.argmax(pred))
     idx = font_name.find(".")
     r = font_name[:idx]
   except Exception as e:
