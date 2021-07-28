@@ -15,7 +15,6 @@ app = Flask(__name__, static_url_path="/static")
 
 SAVE_DIR = "./static/images"
 
-
 @app.route('/')
 def index():
     return render_template('index.html', images=os.listdir(SAVE_DIR)[::-1])
@@ -42,7 +41,7 @@ def upload():
             if font_names == None:
                 return render_template('result.html', fontName='エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。')
             
-            cv2.imwrite(os.path.join(SAVE_DIR, font_names[0] + '_' + str(uuid.uuid4()) + '.png'), img)
+            cv2.imwrite(os.path.join(SAVE_DIR, font_names[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fontName=font_names)
     except Exception as e:
         print(e, file=sys.stderr)

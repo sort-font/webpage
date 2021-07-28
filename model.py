@@ -3,7 +3,13 @@ import numpy as np
 from keras.models import model_from_json
 import pickle, sys, traceback
 
-with open("list_row.txt", "rb") as f:
+class FontData:
+    def __init__(self, name, probability):
+      self.name = name
+      self.probability = probability
+
+
+with open("list_row.pkl", "rb") as f:
   list_row = pickle.load(f)
 
   # .以降は起動時に消しておけば、判定時間の短縮につながりそう
@@ -18,16 +24,13 @@ model.load_weights('param.hdf5')
 
 def predict_font(img, display_num : int = 1):
   IMG_SIZE = (64, 64, 3)
-
-  im_resized = np.resize(img, IMG_SIZE)
-  im_resized = im_resized.reshape(1, 64, 64, 3)
-
+  im_resized = np.resize(img, IMG_SIZE).reshape(1, 64, 64, 3).astype("f")
   pred = model.predict(im_resized)
-
+  
   try:
     # 降順にソートして、前からdisplay_num分取得する
     idxs = np.argsort(-pred[0])[:display_num]
-    r = [list_row[idx] for idx in idxs if idx < len(list_row)]
+    r = [FontData(list_row[idx], pred[0][idx]) for idx in idxs if idx < len(list_row)]
   except Exception as e:
     print(e, file=sys.stderr)
     print(traceback.format_exc())

@@ -3,8 +3,8 @@
 <div class="ui aligned segment">
   {% if fontName %}
     <div class="ui relaxed list">
-    {% for name in fontName %}
-    <div class="item">{{ loop.index }}番目: {{ name }}</div>  
+    {% for font_data in fontName %}
+    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ font_data.probability * 100.0 }}%) </div>  
     {% endfor %}
     </div>
   <a href="./">トップへ戻る</a>
