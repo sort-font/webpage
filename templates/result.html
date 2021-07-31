@@ -1,10 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="ui center aligned segment">
-  {% if fontName %}
-  <h1>これは {{ fontName }} です</h1>
+<div class="ui aligned segment">
+  {% if fonts_data_response.ok %}
+    <div class="ui relaxed list">
+    {% for font_data in fonts_data_response.fonts_data %}
+    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%) </div>  
+    {% endfor %}
+    </div>
   <a href="./">トップへ戻る</a>
   {% else %}
+  <h1>{{ fonts_data_response.message }}</h1>
   <a href="./">トップへ戻る</a>
   {% endif %}
 </div>
