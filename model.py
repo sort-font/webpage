@@ -4,10 +4,9 @@ from keras.models import model_from_json
 import pickle, sys, traceback
 
 class FontData:
-    def __init__(self, name, probability):
-      self.name = name
-      self.probability = probability
-
+  def __init__(self, name, probability) -> None:
+    self.name = name
+    self.probability = probability
 
 with open("list_row.pkl", "rb") as f:
   list_row = pickle.load(f)
