@@ -15,6 +15,26 @@
     </form>
 </div>
 
+
+<div class="js-croppie">asda</div>
+
+<script type="test/javascript"　src="croppie.js">
+    $(function() {
+  var $preview = $('.js-croppie');
+
+  var $uploadCrop = $preview.croppie({
+    url: 'http://placekitten.com/500/800',
+    viewport: {
+      width: 200,
+      height: 200
+    },
+    boundary: {
+      width: 300,
+      height: 300
+    }
+  });
+ })
+</script>
 {% if images %}
 <div class="ui center aligned segment">
     <h1>過去に判定されたフォント集</h1>
