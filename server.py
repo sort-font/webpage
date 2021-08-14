@@ -9,7 +9,6 @@ import sys
 import uuid
 import traceback
 import model
-from flask import send_from_directory
 
 app = Flask(__name__, static_url_path="/static")
 
