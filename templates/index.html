@@ -2,15 +2,10 @@
 {% block content %}
 <div class="ui center aligned segment">
     <h1>フォント判定</h1>
-    <form
-        class="ui action input"
-        action="/upload"
-        method="post"
-        enctype="multipart/form-data"
-        onsubmit="onloading()"
-    >
-        <input type="file" name="image" required="required"　accept="image/png, image/jpeg">
-        <input type="number" name="display_num" required="required"　maxlength="2" value="5" placeholder="表示する候補数" step="1">
+    <form class="ui action input" action="/upload" method="post" enctype="multipart/form-data" onsubmit="onloading()">
+        <input type="file" name="image" required="required" 　accept="image/png, image/jpeg">
+        <input type="number" name="display_num" required="required" 　maxlength="2" value="5" placeholder="表示する候補数"
+            step="1">
         <button type="submit" class="ui button">submit</button>
     </form>
 </div>
@@ -20,26 +15,30 @@
     <h1>過去に判定されたフォント集</h1>
     <div class="ui link centered cards">
         {% for path in images %}
+        {% if path != ".gitkeep" %}
+        <!-- フォント名は、ファイル名の_までに格納されているので、_までを抽出している -->
+        {% set img_name = path[:path.find('_')] %}
         <!-- ref: https://semantic-ui.com/views/card.html -->
-        <div class="card">
+        <a class="card" href="https://www.google.com/search?q={{ img_name }}">
             <div class="image">
                 <img src="/static/images/{{ path }}">
             </div>
             <div class="content">
                 <div class="description">
-                    {{ path[:path.find('_')] }}
+                    {{ img_name }}
                 </div>
             </div>
-        </div>
+        </a>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
 {% endif %}
 
 <script type="text/javascript">
-function onloading() {
-    document.querySelector('div').className += ' loading';
-}
+    function onloading() {
+        document.querySelector('div').className += ' loading';
+    }
 </script>
 
 {% endblock %}
