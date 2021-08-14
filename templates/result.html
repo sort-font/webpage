@@ -5,7 +5,8 @@
   {% if fonts_data_response.ok %}
     <div class="ui relaxed list">
     {% for font_data in fonts_data_response.fonts_data %}
-    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%) </div>  
+    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%) </div>
+    <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
     {% endfor %}
     </div>
   <a href="./">トップへ戻る</a>
