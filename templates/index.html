@@ -2,34 +2,81 @@
 {% block content %}
 <div class="ui center aligned segment">
     <h1>フォント判定</h1>
-    <form class="ui action input" action="/upload" method="post" enctype="multipart/form-data" onsubmit="onloading()">
-        <input type="file" name="image" required="required" 　accept="image/png, image/jpeg">
-        <input type="number" name="display_num" required="required" 　maxlength="2" value="5" placeholder="表示する候補数"
+    <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST" onsubmit="onloading()">
+        <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload">
+
+        <input type="number" name="display_num" required="required" maxlength="2" value="5" placeholder="表示する候補数"
             step="1">
         <button type="submit" class="ui button">submit</button>
+
+        <!-- Croppie   参考リンク  https://www.for-engineer.life/entry/python-croppie/  -->
+        <script>
+            $('#upload').on('change', function (e) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.ui.modal')
+                    .modal('show')
+                    ;
+                    $("#preview").croppie("bind",{
+                        url:event.target.result
+                    });
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            });
+        </script>
     </form>
+</div>
+<!-- モーダル -->
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        画像を切り取ってください
+    </div>
+    <div class="image content">
+        <div class="description">
+            <div class="ui header"></div>
+            <img id="preview" >
+                <script>
+                $('#preview').croppie({    
+                    viewport: {
+                        width: 150,
+                        height: 150
+                    },
+                    boundary: {
+                        width: 300,
+                        height: 300
+                    }
+                });
+                </script>
+                
+
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+             他の画像を選択する
+        </div>
+        <div class="ui positive right labeled icon button" id="crop_end">
+            決定
+            <script>
+
+                $("#crop_end").click(function(event){
+                    const a = $('#preview').croppie("result",{
+                        type:"canvas",
+                        size: "viewport"
+                    })
+                    console.log($.type(a));
+                }
+                    
+                );
+            </script>
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
 </div>
 
 
-<div class="js-croppie">asda</div>
 
-<script type="test/javascript"　src="croppie.js">
-    $(function() {
-  var $preview = $('.js-croppie');
-
-  var $uploadCrop = $preview.croppie({
-    url: 'http://placekitten.com/500/800',
-    viewport: {
-      width: 200,
-      height: 200
-    },
-    boundary: {
-      width: 300,
-      height: 300
-    }
-  });
- })
-</script>
 {% if images %}
 <div class="ui center aligned segment">
     <h1>過去に判定されたフォント集</h1>
