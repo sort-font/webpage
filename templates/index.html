@@ -35,6 +35,49 @@
 </div>
 {% endif %}
 
+<div class="ui fullscreen modal">
+    <i class="close icon"></i>
+    <div class="header">
+      お問い合わせフォーム
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <div class="two fields">
+          <div class="field">
+            <label>お名前</label>
+            <input type="text" name="username" placeholder="根本太郎">
+          </div>
+          <div class="field">
+            <label>メールアドレス</label>
+            <input type="password" name="password" placeholder="font_sort@example.com">
+          </div>
+        </div>
+        <div class="field">
+          <label>お問い合わせ内容</label>
+          <textarea placeholder="お問い合わせ内容を入力してください"></textarea>
+        </div>
+        <div class="field">
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui green button">送信</div>
+    </div>
+  </div>
+
+  <div class="ui center aligned segment">
+    <div class="ui positive right labeled icon button" id="application-form">
+          お問い合わせフォーム
+      <script>
+                $("#application-form").click((e) => {
+                    $('.fullscreen.modal')
+      .modal('show')
+    ;
+                });
+      </script>
+      </div>
+  </div>
+
 <script type="text/javascript">
     function onloading() {
         document.querySelector('div').className += ' loading';
