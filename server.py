@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from typing import Any
 from flask import Flask, render_template, request, url_for
 import numpy as np
@@ -9,6 +10,9 @@ import sys
 import uuid
 import traceback
 import model
+import base64
+from io import BytesIO
+from PIL import Image
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -22,7 +26,7 @@ class FontsDataResponse:
 
 
 SAVE_DIR = "./static/images"
-
+img=0
 
 @app.route('/')
 def index():
@@ -30,18 +34,38 @@ def index():
 
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
 
+@app.route("/crop_image", methods=["POST"])
+def crop_image():
+    global img
+    try:
+        if request.method=="POST":
+            # 画像として読み込み¥
+            print("/upload")
+            enc_data = request.form.getlist('croped_image')
+            print(type(enc_data[0]))
+            print(enc_data[0].split(',')[1])
+            dec_data = base64.b64decode(enc_data[0].split(',')[1])
+            img_np = np.frombuffer(dec_data, np.uint8)
+            img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+            print("--")
+            print("--")
+            print("--")
+            print(img)
+            print(type(img))
+            
+    except Exception as e:
+        print("error")
+        print(e, file=sys.stderr)
+        print(traceback.format_exc())
+        
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    global img
     try:
         if request.files == None:
             return render_template('result.html', font_data_response=FontsDataResponse(None, "ファイルがアップロードされていません"))
-        if request.files['image']:
-            # 画像として読み込み
-            stream = request.files['image'].stream
-            img_array = np.asarray(bytearray(stream.read()), dtype=np.uint8)
-            img = cv2.imdecode(img_array, 1)
-
+        else :
             display_num = 5
             display_num_str = request.form["display_num"]
             if len(display_num_str) > 0 and int(display_num_str) > 0:
@@ -56,7 +80,9 @@ def upload():
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fonts_data_response=FontsDataResponse(fonts_data))
+    
     except Exception as e:
+        print("error")
         print(e, file=sys.stderr)
         print(traceback.format_exc())
         return render_template('result.html', fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
