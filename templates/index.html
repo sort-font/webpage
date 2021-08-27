@@ -39,15 +39,15 @@
             <img id="preview">
             <script>
                 var $image_crop = $('#preview').croppie({
-                    /*
+                    
                     viewport: {
-                        width: 300,
-                        height: 300
+                        width: 200,
+                        height: 200
                     },
-                    */
+                    
                     boundary: {
                         width: 400,
-                        height: 400
+                        height: 400 
                     },
 
                 });
@@ -63,22 +63,18 @@
                         <div class="ui positive right labeled icon button" id="crop_end">
                             決定
                             <script>
-
+                                
                                 $("#crop_end").click(function (event) {
-                                    /*const a = $croppie.croppie("result",{ })
-                                    a.then((res) => {document.upload_form.upload.value = res;})*/
                                     $image_crop.croppie('result', {
                                         type: 'base64',
-                                        /*
-                                        size: {width :150,height: 150}*/
+                                        size: "viewport",
                                     }).then(function (response) {
-                                        console.log(response);
+                                       
                                         $.ajax({
                                             url: "/crop_image",
                                             type: "POST",
                                             data: { "croped_image": response },
                                             success: function (data) {
-                                                $('#ajax_account_image').attr('src', data.image);
                                             }
                                         });
                                     })

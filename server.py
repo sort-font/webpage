@@ -39,11 +39,8 @@ def crop_image():
     global img
     try:
         if request.method=="POST":
-            # 画像として読み込み¥
-            print("/upload")
+            # 画像として読み込み
             enc_data = request.form.getlist('croped_image')
-            print(type(enc_data[0]))
-            print(enc_data[0].split(',')[1])
             dec_data = base64.b64decode(enc_data[0].split(',')[1])
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
