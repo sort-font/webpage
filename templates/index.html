@@ -39,48 +39,52 @@
             <img id="preview">
             <script>
                 var $image_crop = $('#preview').croppie({
+                    /*
                     viewport: {
-                        width: 150,
-                        height: 150
-                    },
-                    boundary: {
                         width: 300,
                         height: 300
-                    }
+                    },
+                    */
+                    boundary: {
+                        width: 400,
+                        height: 400
+                    },
+
                 });
             </script>
 
 
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">
-            他の画像を選択する
-        </div>
-        <div class="ui positive right labeled icon button" id="crop_end">
-            決定
-            <script>
+        </div >
+    </div >
+                    <div class="actions">
+                        <div class="ui black deny button">
+                            他の画像を選択する
+                        </div>
+                        <div class="ui positive right labeled icon button" id="crop_end">
+                            決定
+                            <script>
 
-                $("#crop_end").click(function (event) {
-                                        /*const a = $croppie.croppie("result",{ })
-                                        a.then((res) => {document.upload_form.upload.value = res;})*/
-                    $image_crop.croppie('result', {
-                        type: 'canvas',
-                        size: 'viewport'
-                    }).then(function (response) {
-                            console.log(response);
-                        $.ajax({
-                            url: "/crop_image",
-                            type: "POST",
-                            data: { "croped_image": response },
-                            success: function (data) {
-                                console.log("good")
-                            }
-                        });
-                    })
-                }
+                                $("#crop_end").click(function (event) {
+                                    /*const a = $croppie.croppie("result",{ })
+                                    a.then((res) => {document.upload_form.upload.value = res;})*/
+                                    $image_crop.croppie('result', {
+                                        type: 'base64',
+                                        /*
+                                        size: {width :150,height: 150}*/
+                                    }).then(function (response) {
+                                        console.log(response);
+                                        $.ajax({
+                                            url: "/crop_image",
+                                            type: "POST",
+                                            data: { "croped_image": response },
+                                            success: function (data) {
+                                                $('#ajax_account_image').attr('src', data.image);
+                                            }
+                                        });
+                                    })
+                                }
 
-                );
+                                );
             </script>
             <i class="checkmark icon"></i>
         </div>
@@ -115,8 +119,8 @@
 {% endif %}
 
 <script type="text/javascript">
-    function onloading() {
-        document.querySelector('div').className += ' loading';
+                function onloading() {
+                    document.querySelector('div').className += ' loading';
     }
 </script>
 

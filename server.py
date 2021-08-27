@@ -47,12 +47,7 @@ def crop_image():
             dec_data = base64.b64decode(enc_data[0].split(',')[1])
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
-            print("--")
-            print("--")
-            print("--")
-            print(img)
-            print(type(img))
-            
+
     except Exception as e:
         print("error")
         print(e, file=sys.stderr)
