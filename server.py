@@ -2,6 +2,7 @@
 
 from typing import Any
 from flask import Flask, render_template, request, url_for
+from collections import Counter
 import numpy as np
 import cv2
 import os
@@ -52,7 +53,20 @@ def upload():
             if fonts_data == None:
                 return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
 
-            # ファイル名の先頭で最も確率の高かったフォント名を保持しておく
+            data_a = fonts_data
+            if data_a : 
+             fonts_a = list
+             fonts_a =[] # 空のdictを宣言.
+             fonts_a.append(data_a)
+             fonts_counter = Counter(fonts_a)
+             print(fonts_counter.most_common()[0])
+             print(fonts_counter.most_common()[1])
+             print(fonts_counter.most_common()[2])
+             print(fonts_counter.most_common()[3])
+             print(fonts_counter.most_common()[4])
+             print(fonts_counter.most_common()[5])
+             return render_template('index.html', aaa = fonts_counter.most_common()[0],)
+            
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fonts_data_response=FontsDataResponse(fonts_data))
