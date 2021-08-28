@@ -44,12 +44,13 @@ def crop_image():
             dec_data = base64.b64decode(enc_data[0].split(',')[1])
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+            return 0
 
     except Exception as e:
         print("error")
         print(e, file=sys.stderr)
         print(traceback.format_exc())
-        
+        return 0
 
 @app.route('/upload', methods=['POST'])
 def upload():

@@ -39,53 +39,79 @@
             <img id="preview">
             <script>
                 var $image_crop = $('#preview').croppie({
-                    
+
                     viewport: {
-                        width: 200,
-                        height: 200
+                        width: 60,
+                        height: 60
                     },
-                    
+
                     boundary: {
-                        width: 400,
-                        height: 400 
+                        width: 300,
+                        height: 300
                     },
 
                 });
             </script>
 
 
-        </div >
-    </div >
-                    <div class="actions">
-                        <div class="ui black deny button">
-                            他の画像を選択する
-                        </div>
-                        <div class="ui positive right labeled icon button" id="crop_end">
-                            決定
-                            <script>
-                                
-                                $("#crop_end").click(function (event) {
-                                    $image_crop.croppie('result', {
-                                        type: 'base64',
-                                        size: "viewport",
-                                    }).then(function (response) {
-                                       
-                                        $.ajax({
-                                            url: "/crop_image",
-                                            type: "POST",
-                                            data: { "croped_image": response },
-                                            success: function (data) {
-                                            }
-                                        });
-                                    })
-                                }
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            他の画像を選択する
+        </div>
+        <div class="ui positive right labeled icon button" id="crop_end">
+            決定
+            <script>
 
-                                );
+                $("#crop_end").click(function (event) {
+                    $image_crop.croppie('result', {
+                        type: 'base64',
+                        size: "viewport",
+                    }).then(function (response) {
+
+                        $.ajax({
+                            url: "/crop_image",
+                            type: "POST",
+                            data: { "croped_image": response },
+                            success: function (data) {
+                            }
+                        });
+                    })
+                }
+
+                );
             </script>
             <i class="checkmark icon"></i>
         </div>
     </div>
 </div>
+
+
+
+<div class="ui accordion" style="text-align:center">
+    <div class="title" style="font-size: 20px;">
+        <i class="dropdown icon" ></i>
+        Tips
+    </div>
+    <div class="content">
+        <p class="transition hidden">
+            <div style="text-align: center;">
+            <ul class="ui list" style="text-align: left; display: inline-block;">
+                <li> 白地に黒文字の画像を選択してください。</li>
+                <li> １文字分だけトリミングしてください。</li>
+                <li> ひらがな、カタカナを切り取ってください。</li>
+            </ul>
+        </div>
+        </p>
+    </div>
+</div>
+<script>
+    $('.ui.accordion')
+        .accordion()
+        ;
+
+</script>
 
 
 
@@ -98,16 +124,19 @@
         <!-- フォント名は、ファイル名の_までに格納されているので、_までを抽出している -->
         {% set img_name = path[:path.find('_')] %}
         <!-- ref: https://semantic-ui.com/views/card.html -->
-        <a class="card" href="https://www.google.com/search?q={{ img_name }}">
-            <div class="image">
-                <img src="/static/images/{{ path }}">
-            </div>
-            <div class="content">
-                <div class="description">
-                    {{ img_name }}
+        <div class="ui card">
+            <a class="card" href="https://www.google.com/search?q={{ img_name }}">
+                <div class="image">
+                    <img src="/static/images/{{ path }}">
                 </div>
-            </div>
-        </a>
+                <div class="content">
+                    <a class="header" href="https://www.google.com/search?q={{ img_name }}">
+                        {{ img_name }}
+                    </a>   
+                </div>
+            </a>
+            <a href="/static/images/{{ path }}" download="" class="ui basic violet button">Download</a>
+        </div>
         {% endif %}
         {% endfor %}
     </div>
@@ -115,8 +144,8 @@
 {% endif %}
 
 <script type="text/javascript">
-                function onloading() {
-                    document.querySelector('div').className += ' loading';
+    function onloading() {
+        document.querySelector('div').className += ' loading';
     }
 </script>
 
