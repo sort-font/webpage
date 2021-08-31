@@ -20,3 +20,36 @@ form {
 input {
   color: black;
 }
+
+.outer {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-width: 600px;   /*中央配置するボックスの横幅*/
+  min-height: 400px;  /*中央配置するボックスの縦幅*/
+}
+
+.inner{
+  margin: -200px 0 0 -300px;  /*縦横半分をネガティブマージンでずらす*/
+  position: absolute;     /*body要素に対して絶対配置*/
+  top: 50%;       /*上端を中央に*/
+  left: 50%;      /*左端を中央に*/
+  width: 600px;   /*横幅*/
+  height: 400px;  /*縦幅*/
+  text-align: center;
+}
+
+.heading{
+  line-height: 400px;
+  font-size: 80px;
+  color: black;
+}
+
+.heading:hover {
+  color: black;
+}
+
+.heading:visited {
+  color: black;
+} 

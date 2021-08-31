@@ -29,6 +29,11 @@ SAVE_DIR = "./static/images"
 img=0
 
 @app.route('/')
+def top():
+    return render_template('top.html')
+
+
+@app.route('/index')
 def index():
     return render_template('index.html', images=os.listdir(SAVE_DIR)[::-1])
 
