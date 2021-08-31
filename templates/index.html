@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="ui center aligned segment">
+    
+
     <h1>フォント判定</h1>
     <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST" onsubmit="onloading()"
         name="upload_form">
@@ -63,7 +65,7 @@
         <div class="ui positive right labeled icon button" id="crop_end">
             決定
             <script>
-
+                
                 $("#crop_end").click(function (event) {
                     $image_crop.croppie('result', {
                         type: 'base64',
@@ -135,7 +137,7 @@
                     </a>   
                 </div>
             </a>
-            <a href="/static/images/{{ path }}" download="" class="ui basic violet button">Download</a>
+            <a href="/static/images/{{ path }}" download="" class="ui basic violet button"><i class="download icon"></i>download</a>
         </div>
         {% endif %}
         {% endfor %}
