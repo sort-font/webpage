@@ -23,6 +23,8 @@ model.load_weights('param.hdf5')
 
 def predict_font(img, display_num : int = 1):
   IMG_SIZE = (64, 64, 3)
+  pil_image = Image.fromarray(img).convert("L")
+  img = np.array(pil_image)
   im_resized = np.resize(img, IMG_SIZE).reshape(1, 64, 64, 3).astype("f")
   pred = model.predict(im_resized)
   
