@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from pickle import NONE
 from typing import Any
 from flask import Flask, render_template, request, url_for
 from collections import Counter
@@ -11,15 +12,29 @@ import uuid
 import traceback
 import model
 
+global fonts_counter
+
 app = Flask(__name__, static_url_path="/static")
 
 
+ 
 class FontsDataResponse:
   def __init__(self, fonts_data: model.FontData, message: str = "") -> None:
     # font_dataが空ならOKではない
     self.ok = fonts_data != None
     self.fonts_data = fonts_data
     self.message = message
+
+class FontCount:
+  aaa = NONE
+  bbb = NONE
+  def fonts_counter_responce(self):
+      return render_template('index.html', aaa, bbb)
+
+aaa = FontCount()
+aaa.fonts_name = fonts_counter()[0][0]
+bbb = FontCount()
+bbb.fonts_name = fonts_counter()[0][0]
 
 
 SAVE_DIR = "./static/images"
@@ -53,20 +68,12 @@ def upload():
             if fonts_data == None:
                 return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
 
-            data_a = fonts_data
-            if data_a : 
-             fonts_a = list
-             fonts_a =[] # 空のdictを宣言.
-             fonts_a.append(data_a)
-             fonts_counter = Counter(fonts_a)
-             print(fonts_counter.most_common()[0])
-             print(fonts_counter.most_common()[1])
-             print(fonts_counter.most_common()[2])
-             print(fonts_counter.most_common()[3])
-             print(fonts_counter.most_common()[4])
-             print(fonts_counter.most_common()[5])
-             return render_template('index.html', aaa = fonts_counter.most_common()[0],)
-            
+        
+            if fonts_data:
+                fonts_data[0].name=+1 #出力結果の中で一番高い確率を選択
+                fonts_data = fonts_data[0].name
+                fonts_counter = Counter(fonts_data) #フォントを数える.
+
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fonts_data_response=FontsDataResponse(fonts_data))
@@ -74,7 +81,6 @@ def upload():
         print(e, file=sys.stderr)
         print(traceback.format_exc())
         return render_template('result.html', fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
-
 
 @app.context_processor
 def override_url_for():
