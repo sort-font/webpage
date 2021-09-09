@@ -26,6 +26,13 @@ class FontsDataResponse:
 
 
 SAVE_DIR = "./static/images"
+# ディレクトリがなかったら作成するコードを追加
+try:
+    if not os.path.exists(SAVE_DIR):
+        os.makedirs(SAVE_DIR)
+except Exception as e:
+    print(e)
+
 img=0
 
 @app.route('/')
