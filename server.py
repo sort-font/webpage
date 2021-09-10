@@ -28,6 +28,7 @@ SAVE_DIR = "./static/images"
 def index():
     return render_template('index.html', images=os.listdir(SAVE_DIR)[::-1])
 
+
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
 
 
@@ -61,6 +62,14 @@ def upload():
         print(traceback.format_exc())
         return render_template('result.html', fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
 
+@app.route('/enter', methods=['POST'])
+def enter():
+    username = request.form.get('username')
+    email = request.form.get('email')
+    enter = request.form.get('enter')
+    with open("enter.txt", "w",encoding="utf=8") as f:
+        f.write(username + "\n" + email + "\n" + enter)
+    return render_template('enter.html', username=username, email=email, enter=enter)
 
 @app.context_processor
 def override_url_for():

@@ -34,10 +34,9 @@
     </div>
 </div>
 {% endif %}
-
-<div class="ui fullscreen modal">
+  <form class="ui fullscreen modal" action="/enter" method="POST">
     <i class="close icon"></i>
-    <div class="header">
+    <div class="header" method="post">
       お問い合わせフォーム
     </div>
     <div class="content">
@@ -49,22 +48,19 @@
           </div>
           <div class="field">
             <label>メールアドレス</label>
-            <input type="password" name="password" placeholder="font_sort@example.com">
+            <input type="email" name="email" placeholder="font_sort@example.com">
           </div>
         </div>
         <div class="field">
           <label>お問い合わせ内容</label>
-          <textarea placeholder="お問い合わせ内容を入力してください"></textarea>
+          <textarea name="enter" placeholder="お問い合わせ内容を入力してください"></textarea>
         </div>
-        <div class="field">
+        <div class="field" >
         </div>
       </div>
     </div>
-    <div class="actions">
-      <div class="ui green button">送信</div>
-    </div>
-  </div>
-
+        <button type="submit" class="ui green button">送信</button>
+  </form>
   <div class="ui center aligned segment">
     <div class="ui positive right labeled icon button" id="application-form">
           お問い合わせフォーム
@@ -76,7 +72,7 @@
                 });
       </script>
       </div>
-  </div>
+    </div>
 
 <script type="text/javascript">
     function onloading() {
