@@ -1,7 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
+<header id="header" class="bg_image">
+    <div class="logo">sort font</div>
+    <div class="container1" >
+        <h1>Do you mind that font?<br>Find it!</h1>
+    </div>
+</header>
+
+
+<main>
+<section id="box1" class="box" data-section-name="about"><!--data-section-nameはページネーションを表示させた際、現在地に現れるテキスト-->
+    <ul class="pagination"><li><a class="active" href="#about"><span class="hover-text">about</span></a></li><li><a class="active" href="#sort"><span class="hover-text">sort</span></a></li><li><a class="" href="#data"><span class="hover-text">data</span></a></li></ul>
+    <div class="logo">About</div>
+    <div class="container2" >
+        <p>おい、やっとできたぜ、、、</p>
+    </div>
+    <div id="particle-canvas"></div>
+</section>
+
+<section id="box2" class="box" data-section-name="sort"><!--data-section-nameはページネーションを表示させた際、現在地に現れるテキスト-->
 <div class="ui center aligned segment">
-    <h1>フォント判定</h1>
+    <h1 class="heading">フォント判定</h1>
     <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST" onsubmit="onloading()"
         name="upload_form">
         <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload">
@@ -99,11 +118,13 @@
 <script>
     $('.ui.accordion').accordion();
 </script>
+</section>
 
 
+<section id="box3" class="box" data-section-name="data">
 {% if images %}
 <div class="ui center aligned segment">
-    <h1>過去に判定されたフォント集</h1>
+    <h1 class="heading">過去に判定されたフォント集</h1>
     <div class="ui link centered cards">
         {% for path in images %}
         {% if path != ".gitkeep" %}
@@ -129,6 +150,18 @@
     </div>
 </div>
 {% endif %}
+</section>
+</main>
+
+<footer id="footer">
+    <small>&copy; Copyright </small> 
+</footer>
+
+<!-- スクロールのJS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollify/1.0.21/jquery.scrollify.min.js"></script>
+<!--自作のJS-->
+<script src="static/js/script.js"></script>
 
 <script type="text/javascript">
     function onloading() {
