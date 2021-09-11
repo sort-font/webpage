@@ -12,7 +12,6 @@ import uuid
 import traceback
 import model
 
-global fonts_counter
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -25,17 +24,25 @@ class FontsDataResponse:
     self.fonts_data = fonts_data
     self.message = message
 
-class FontCount:
+
+global fonts_data_top
+class FontCountResponce:#格納されたフォントを
   aaa = NONE
   bbb = NONE
+  ccc = NONE #インデントの定義
+
+  def fonts_counter(self):#フォントを数える.
+      fonts_counter = Counter(fonts_data_top)
+
+  
   def fonts_counter_responce(self):
-      return render_template('index.html', aaa, bbb)
+      fonts_counter = list
+    
+      return render_template('index.html', aaa, bbb, ccc)
 
-aaa = FontCount()
-aaa.fonts_name = fonts_counter()[0][0]
-bbb = FontCount()
-bbb.fonts_name = fonts_counter()[0][0]
-
+aaa = fonts_counter()[0][0]
+bbb = fonts_counter()[0][1]
+ccc = fonts_counter()[0][2]
 
 SAVE_DIR = "./static/images"
 
@@ -68,12 +75,11 @@ def upload():
             if fonts_data == None:
                 return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
 
-        
-            if fonts_data:
+            if fonts_data:#フォントを格納する処理
+                global fonts_data_top
                 fonts_data[0].name=+1 #出力結果の中で一番高い確率を選択
-                fonts_data = fonts_data[0].name
-                fonts_counter = Counter(fonts_data) #フォントを数える.
-
+                fonts_data_top = fonts_data[0].name #グローバル変数に格納
+                
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fonts_data_response=FontsDataResponse(fonts_data))
@@ -95,7 +101,6 @@ def dated_url_for(endpoint, **values):
                                      endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
-
 
 if __name__ == '__main__':
     app.debug = True
