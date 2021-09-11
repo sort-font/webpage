@@ -26,18 +26,18 @@ class FontsDataResponse:
 
 
 global fonts_data_top
-class FontCountResponce:#格納されたフォントを
+class FontCountResponce:#フォントを保存しhtmlに返す.
   aaa = NONE
   bbb = NONE
-  ccc = NONE #インデントの定義
+  ccc = NONE 
+  ddd = NONE
+  eee = NONE # インスタンス変数の宣言
 
-  def fonts_counter(self):#フォントを数える.
-      fonts_counter = Counter(fonts_data_top)
+  def __init__(self) :
+      self.name = ''
 
-  
   def fonts_counter_responce(self):
-      fonts_counter = list
-    
+      a = Counter('fonts_data_top')
       return render_template('index.html', aaa, bbb, ccc)
 
 aaa = fonts_counter()[0][0]
@@ -76,9 +76,9 @@ def upload():
                 return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
 
             if fonts_data:#フォントを格納する処理
-                global fonts_data_top
                 fonts_data[0].name=+1 #出力結果の中で一番高い確率を選択
                 fonts_data_top = fonts_data[0].name #グローバル変数に格納
+                
                 
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
