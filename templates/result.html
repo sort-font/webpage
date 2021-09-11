@@ -3,16 +3,93 @@
 <div class="ui center aligned segment">
   <h1>判定結果</h1>
   {% if fonts_data_response.ok %}
-    <div class="ui relaxed list">
+  <div class="ui relaxed list">
     {% for font_data in fonts_data_response.fonts_data %}
-    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%) </div>
+    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ (font_data.probability * 100.0)|round(2, 'floor')
+      }}%) </div>
     <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
     {% endfor %}
-    </div>
+  </div>
   <a href="./">トップへ戻る</a>
   {% else %}
   <h1>{{ fonts_data_response.message }}</h1>
   <a href="./">トップへ戻る</a>
   {% endif %}
+
+  <table align="center">
+    <div style="width: 800px; padding: 3px; margin-bottom: 3px; border: 3px solid #333333;">
+      <h2>FeedBack</h2>
+      <div class="ui form">
+        <div class="inline fields">
+          <label>フォントが正しく判定できているか?</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="frequency" checked="checked" required>
+              <label>良い</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="frequency" required>
+              <label>少し良い</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="frequency" required>
+              <label>少し悪い</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="frequency" required>
+              <label>悪い</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form action="" method="post">
+        <div class="ui form">
+          <div class="inline fields">
+            <label>このアプリの機能性はどうか?</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="frequency" checked="checked" required>
+                <label>良い</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="frequency" required>
+                <label>少し良い</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="frequency" required>
+                <label>少し悪い</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="frequency" required>
+                <label>悪い</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui form">
+          <div class="field">
+            <label>何か改善点があれば記入をおねがいします.</label>
+            <textarea></textarea>
+          </div>
+        </div>
+        <div class="btn_area">
+          <input type="submit" name="btn_confirm" value="入力内容を確認する">
+        </div>
+      </form>
+    </div>
+
+  </table>
 </div>
 {% endblock %}
