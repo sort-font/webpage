@@ -6,8 +6,7 @@
         name="upload_form">
         <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload">
 
-        <input type="number" name="display_num" required="required" maxlength="2" placeholder="表示する候補数"
-            step="1">
+        <input type="number" name="display_num" required="required" maxlength="2" placeholder="表示する候補数" step="1">
         <button type="submit" class="ui button">submit</button>
 
         <!-- Croppie   参考リンク  https://www.for-engineer.life/entry/python-croppie/  -->
@@ -135,5 +134,18 @@
         document.querySelector('div').className += ' loading';
     }
 </script>
+
+<div class="ui center aligned segment">
+    <div class="ui positive right labeled icon button" id="application-form">
+              お問い合わせフォーム
+        <script>
+                    $("#application-form").click((e) => {
+                        $('.fullscreen.modal')
+          .modal('show')
+        ;
+                    });
+        </script>
+    </div>
+</div>
 
 {% endblock %}
