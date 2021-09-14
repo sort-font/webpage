@@ -35,8 +35,26 @@
     </div>
     <div class="image content">
         <div class="description">
-            <div class="ui header"></div>
-            <img id="preview">
+            <div class="content" style="display: flex;">
+                <div class="container segment">
+                    <h3>以下のようにトリミングするのが望ましいです。</h3>
+                    <ul class="ui list" style="display: inline-block; font-size: 14px;">
+                        <li> 白地に黒文字の画像を選択してください。</li>
+                        <li> １文字分だけトリミングしてください。</li>
+                        <li> ひらがな、カタカナを切り取ってください。</li>
+                    </ul>
+                    <dir>
+                        <img src="/static/images/croppie-demo.png" alt="demo" width="250" height="320">
+                    </dir>
+                    
+                </div>
+
+                <div class = "container segment center">
+                    <h4 class="center padding"> 画像の拡大縮小は下のバーを操作しても行えます。 </h4>
+
+                    <img id="preview">
+                </div>
+            </div>
             <script>
                 var $image_crop = $('#preview').croppie({
                     viewport: {
@@ -47,7 +65,6 @@
                         width: 300,
                         height: 300
                     },
-                    enableResize: true,
                 });
             </script>
         </div>
@@ -79,28 +96,6 @@
         </div>
     </div>
 </div>
-
-<div class="ui accordion" style="text-align:center">
-    <div class="title" style="font-size: 20px;">
-        <i class="dropdown icon"></i>
-        Tips
-    </div>
-    <div class="content">
-        <p class="transition hidden">
-        <div style="text-align: center;">
-            <ul class="ui list" style="text-align: left; display: inline-block;">
-                <li> 白地に黒文字の画像を選択してください。</li>
-                <li> １文字分だけトリミングしてください。</li>
-                <li> ひらがな、カタカナを切り取ってください。</li>
-            </ul>
-        </div>
-        </p>
-    </div>
-</div>
-<script>
-    $('.ui.accordion').accordion();
-</script>
-
 
 {% if images %}
 <div class="ui center aligned segment">

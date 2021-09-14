@@ -53,3 +53,10 @@ input {
 .heading:visited {
   color: black;
 }
+
+.center{
+  text-align: center
+}
+.padding{
+  padding: 20px;
+}
