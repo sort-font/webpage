@@ -15,6 +15,7 @@
     <a href="/index"> トップへ戻る </a>
     {% endif %}
 
+    <p><a href="/index"> トップへ戻る </a></p>
     <div class="ui main container">
       <button class="ui button yellow create_btn" type="button" id="open">FeedBackを送信する</button>
 
@@ -92,7 +93,7 @@
         </div>
         <div class="actions">
           <button id="cancel" class="ui grey deny button" title="Annulla">Cancel</button>
-          <button id="confirm" class="ui  blue deny button" title="Elimina" >Confirm</button>
+          <button id="confirm" class="ui  blue deny button" title="Elimina">Confirm</button>
         </div>
       </div>
     </div>
@@ -106,11 +107,11 @@
             })
             .modal('show')
         });
-        $("#confirm").click(function (){
+        $("#confirm").click(function () {
           document.getElementById("open").disabled = true;
         });
-  
-    
+
+
       });
     </script>
     {% endblock %}
