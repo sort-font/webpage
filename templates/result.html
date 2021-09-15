@@ -9,92 +9,104 @@
       }}%) </div>
     <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
     {% endfor %}
-<<<<<<< HEAD
-  </div>
-  <a href="./">トップへ戻る</a>
-=======
-    </div>
-  <a href="/index">トップへ戻る</a>
->>>>>>> a0f70eede44b133c4d51bf7676492c76f41bd3e9
-  {% else %}
-  <h1>{{ fonts_data_response.message }}</h1>
-  <a href="/index">トップへ戻る</a>
-  {% endif %}
 
-  <table align="center">
-    <div style="width: 800px; padding: 3px; margin-bottom: 3px; border: 3px solid #333333;">
-      <h2>FeedBack</h2>
-      <div class="ui form">
-        <div class="inline fields">
-          <label>フォントが正しく判定できているか?</label>
-          <div class="field">
-            <div class="ui radio checkbox">
-              <input type="radio" name="frequency" checked="checked" required>
-              <label>良い</label>
+    {% else %}
+    <h1>{{ fonts_data_response.message }}</h1>
+    <a href="/index"> トップへ戻る </a>
+    {% endif %}
+    
+    <div class="ui main container">
+      <button class="ui button yellow create_btn" type="button" id="open">FeedBackを送信する</button>
+
+      <div class="ui small modal my-modal">
+        <div class="header ">FeedBack</div>
+        <div class="content">
+          <table align="center">
+            <div class="ui form">
+              <div class="inline fields">
+                <label>フォントが正しく判定できているか?</label>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="frequency" checked="checked" required>
+                    <label>良い</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="frequency" required>
+                    <label>少し良い</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="frequency" required>
+                    <label>少し悪い</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="frequency" required>
+                    <label>悪い</label>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <div class="ui radio checkbox">
-              <input type="radio" name="frequency" required>
-              <label>少し良い</label>
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui radio checkbox">
-              <input type="radio" name="frequency" required>
-              <label>少し悪い</label>
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui radio checkbox">
-              <input type="radio" name="frequency" required>
-              <label>悪い</label>
-            </div>
-          </div>
+            <form action="" method="post">
+              <div class="ui form">
+                <div class="inline fields">
+                  <label>このアプリの機能性はどうか?</label>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" checked="checked" required>
+                      <label>良い</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" required>
+                      <label>少し良い</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" required>
+                      <label>少し悪い</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" required>
+                      <label>悪い</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui form">
+                <div class="field">
+                  <label>何か改善点があれば記入をおねがいします.</label>
+                  <textarea></textarea>
+                </div>
+              </div>
+            </form>
+          </table> その回答が私達の励みになります. </p>
+        </div>
+        <div class="actions">
+          <button id="cancel" class="ui grey deny button" title="Annulla">Cancel</button>
+          <button id="confirm" class="ui primary button" title="Elimina">Confirm</button>
         </div>
       </div>
-      <form action="" method="post">
-        <div class="ui form">
-          <div class="inline fields">
-            <label>このアプリの機能性はどうか?</label>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input type="radio" name="frequency" checked="checked" required>
-                <label>良い</label>
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input type="radio" name="frequency" required>
-                <label>少し良い</label>
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input type="radio" name="frequency" required>
-                <label>少し悪い</label>
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input type="radio" name="frequency" required>
-                <label>悪い</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ui form">
-          <div class="field">
-            <label>何か改善点があれば記入をおねがいします.</label>
-            <textarea></textarea>
-          </div>
-        </div>
-        <div class="btn_area">
-          <input type="submit" name="btn_confirm" value="入力内容を確認する">
-        </div>
-      </form>
     </div>
+    <script>
+      $(function () {
+        $("#open").click(function () {
+          $('.my-modal')
+            .modal({
+              closable: false,
 
-  </table>
-</div>
-{% endblock %}
+            })
+            .modal('show')
+            ;
+        });
+      });
+    </script>
+    {% endblock %}

@@ -53,3 +53,8 @@ input {
 .heading:visited {
   color: black;
 }
+/*FeedBack*/
+.ui.container {
+  width: 1400px;
+  margin: 0 auto;
+}
