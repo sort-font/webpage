@@ -13,6 +13,7 @@ import model
 import base64
 from io import BytesIO
 from PIL import Image
+from datetime import date
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -94,12 +95,14 @@ def upload():
 
 @app.route('/enter',methods=['POST'])
 def enter():
-    username = request.form.get('username')
-    email = request.form.get('email')
     enter = request.form.get('enter')
-    with open("enter.txt", "w",encoding="utf-8") as f:
-        f.write(username + "\n" + email + "\n" + enter)
-    return render_template('enter.html', username=username, email=email, enter=enter)
+    if os.path.exists('enter.txt'):
+        with open("enter.txt", "a",encoding="utf-8") as f:
+            f.write("\n\n" + str(date.today()) +"\n" + enter)
+    else:
+        with open("enter.txt", "w",encoding="utf-8") as f:
+            f.write(str(date.today()) +"\n" + enter)
+    return render_template('enter.html', enter=enter)
 
 
 @app.context_processor
