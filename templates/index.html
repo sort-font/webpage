@@ -1,135 +1,119 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="ui raised very padded text container segment padding">
-    <div class="ui center aligned segment">
-        <h1>フォント判定</h1>
-        <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST"
-            onsubmit="onloading()" name="upload_form">
-            <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload">
+<main>
 
-            <input type="number" name="display_num" required="required" maxlength="2" value="5" placeholder="表示する候補数"
-                step="1">
-            <button type="submit" class="ui button">submit</button>
-
-            <!-- Croppie   参考リンク  https://www.for-engineer.life/entry/python-croppie/  -->
-            <script>
-                $('#upload').on('change', function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('.ui.modal')
-                            .modal('show')
-                            ;
-                        $("#preview").croppie("bind", {
-                            url: event.target.result
-                        });
-                    }
-                    reader.readAsDataURL(e.target.files[0]);
-                });
-            </script>
-        </form>
-    </div>
-
-    <!-- モーダル -->
-    <div class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-            画像を切り取ってください
+    <section id="box1" class="box" data-section-name="Top">
+        <ul class="pagination">
+            <li><a class="active" href="#Top"><span class="hover-text">Top</span></a></li>
+            <li><a class="" href="#SortFont"><span class="hover-text">SortFont</span></a></li>
+            <li><a class="" href="#Data"><span class="hover-text">Data</span></a></li>
+        </ul>
+        <div>
+            <h1 class="top_heading TextTyping">Let's find the font!</h1>
+            <p class="sentence">このWebサイトは、「sort font」という様々な広告やウェブサイト等で気になったフォントの名前を教えてくれるアプリケーションです。</p>
         </div>
-        <div class="image content">
-            <div class="description">
-                <div class="ui header"></div>
-                <img id="preview">
-                <script>
-                    var $image_crop = $('#preview').croppie({
-                        viewport: {
-                            width: 60,
-                            height: 60
-                        },
-                        boundary: {
-                            width: 300,
-                            height: 300
-                        },
-                        enableResize: true,
-                    });
-                </script>
+        <div class="ui raised very padded text container segment padding"
+            style="margin-top: 100px; background-color: #f2f4f6;">
+            <div class="black">
+                <h1 class="font_rock">使い方</h1>
+                <ol style="line-height: 40px;">
+                    <li>探したいフォントの写真(スクリーンショット)を撮ろう！</li>
+                    <li>「sort font」でその写真を選択しよう！</li>
+                    <li>次の画面で<span class="red">　ひらがな　</span>か<span class="red">　カタカナ　</span>の部分を一文字だけ切り取ろう！</li>
+                    <li>何番目までフォントを予測するのか指定しよう！</li>
+                    <li>submitを押して結果を見よう！</li>
+                </ol>
             </div>
         </div>
-        <div class="actions">
-            <div class="ui black deny button">
-                他の画像を選択する
-            </div>
-            <div class="ui positive right labeled icon button" id="crop_end">
-                決定
-                <script>
-                    $("#crop_end").click(function (event) {
-                        $image_crop.croppie('result', {
-                            type: 'base64',
-                            size: "viewport",
-                        }).then(function (response) {
-                            $.ajax({
-                                url: "/crop_image",
-                                type: "POST",
-                                data: { "croped_image": response },
-                                success: function (data) {
-                                }
-                            });
-                        })
-                    }
-                    );
-                </script>
-                <i class="checkmark icon"></i>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <div style="text-align:center">
-        <div class="content">
-            <p class="transition hidden">
-            <div style="text-align: center;">
-                <ul class="ui list" style="text-align: left; display: inline-block;">
-                    <li> 白地に黒文字の画像を選択してください。</li>
-                    <li> １文字分だけトリミングしてください。</li>
-                    <li> ひらがな、カタカナを切り取ってください。</li>
-                </ul>
-            </div>
-            </p>
+    <section id="box2" class="box" data-section-name="SortFont">
+        <!--data-section-nameはページネーションを表示させた際、現在地に現れるテキスト-->
+        <div>
+            <h1 class="top_heading TextTyping">Let's find the font!</h1>
+            <p class="sentence">このWebサイトは、「sort font」という様々な広告やウェブサイト等で気になったフォントの名前を教えてくれるアプリケーションです。</p>
         </div>
-    </div>
-</div>
+        <div class="ui raised very padded text container segment padding"
+            style="margin-top: 100px; background-color: #f2f4f6;">
+            <div class="ui center aligned segment" style="background-color: #f2f4f6;">
+                <h1 class="black font_rock">フォント判定</h1>
+                <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST"
+                    onsubmit="onloading()" name="upload_form">
+                    <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload"
+                        style="background-color: #f2f4f6;">
 
-{% if images %}
-<div class="ui center aligned segment">
-    <h1>過去に判定されたフォント集</h1>
-    <div class="ui link centered cards">
-        {% for path in images %}
-        {% if path != ".gitkeep" %}
-        <!-- フォント名は、ファイル名の_までに格納されているので、_までを抽出している -->
-        {% set img_name = path[:path.find('_')] %}
-        <!-- ref: https://semantic-ui.com/views/card.html -->
-        <div class="ui card">
-            <a class="card" href="https://www.google.com/search?q={{ img_name }}">
-                <div class="image">
-                    <img src="/static/images/{{ path }}" width="60px" height="60px">
+                    <input type="number" name="display_num" required="required" maxlength="2" value="5"
+                        placeholder="表示する候補数" step="1" style="background-color: #f2f4f6;">
+                    <button type="submit" class="ui teal button">submit</button>
+                </form>
+            </div>
+
+            <!-- モーダル -->
+            <div class="ui modal">
+                <i class="close icon"></i>
+                <div class="header">
+                    画像を切り取ってください
                 </div>
-                <div class="content">
-                    <a class="header" href="https://www.google.com/search?q={{ img_name }}">
-                        {{ img_name }}
+                <div class="image content">
+                    <div class="description">
+                        <div class="ui header"></div>
+                        <img id="preview">
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui black deny button">
+                        他の画像を選択する
+                    </div>
+                    <div class="ui positive right labeled icon button" id="crop_end">
+                        決定
+                        <i class="checkmark icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="box3" class="box" data-section-name="Data">
+        <div>
+            <h1 class="top_heading TextTyping">Let's find the font!</h1>
+            <p class="sentence">このWebサイトは、「sort font」という様々な広告やウェブサイト等で気になったフォントの名前を教えてくれるアプリケーションです。</p>
+        </div>
+        {% if images %}
+
+        <div class="ui center aligned segment" style="margin: 50px 100px; background-color: #f2f4f6;">
+            <h1 class="black font_rock">過去に判定されたフォント集</h1>
+            <div class="ui link centered cards">
+                {% for path in images %}
+                {% if path != ".gitkeep" %}
+                <!-- フォント名は、ファイル名の_までに格納されているので、_までを抽出している -->
+                {% set img_name = path[:path.find('_')] %}
+                <!-- ref: https://semantic-ui.com/views/card.html -->
+                <div class="ui card" style="background-color: #f2f4f6;">
+                    <a class="card" href="https://www.google.com/search?q={{ img_name }}">
+                        <div class="image">
+                            <img src="/static/images/{{ path }}" width="60px" height="60px">
+                        </div>
+                        <div class="content">
+                            <a class="header" href="https://www.google.com/search?q={{ img_name }}">
+                                {{ img_name }}
+                            </a>
+                        </div>
                     </a>
+                    <a href="/static/images/{{ path }}" download="" class="ui basic violet button"><i
+                            class="download icon"></i>download</a>
                 </div>
-            </a>
-            <a href="/static/images/{{ path }}" download="" class="ui basic violet button"><i
-                    class="download icon"></i>download</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            {% endif %}
         </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
 
-<script type="text/javascript">
-    function onloading() {
-        document.querySelector('div').className += ' loading';
-    }
-</script>
+    </section>
 
+</main>
+
+
+
+<!--自作のJS-->
+<script src="static/js/script.js"></script>
 {% endblock %}

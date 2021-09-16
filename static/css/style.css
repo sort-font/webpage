@@ -1,16 +1,36 @@
 body{
-  font-family: 'Noto Serif JP', serif;
+  font-family: 'DotGothic16', sans-serif;
+  background-color: #449797;
+  text-align: center;
+  color: #f2f4f6;
 }
 
-.btn {
-  background-color: lightblue;
-  margin: 10px 10px;
+.black{
+  color: #38352F;
 }
 
 h1{
   font-size: 30px;
   text-align: center;
-  color: black;
+}
+
+.font_rock{
+  font-family: 'RocknRoll One', sans-serif;
+}
+
+.top_heading{
+  font-size: 75px;
+  text-align: center;
+  font-family: 'DotGothic16', sans-serif;
+
+}
+
+.sentence{
+  font-size: 20px;
+}
+
+.red{
+  color: red;
 }
 
 form {
@@ -21,35 +41,92 @@ input {
   color: black;
 }
 
-.outer {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  min-width: 600px;   /*中央配置するボックスの横幅*/
-  min-height: 400px;  /*中央配置するボックスの縦幅*/
+footer{
+  background-color: #EAFFD0;
 }
 
-.inner{
-  margin: -200px 0 0 -300px;  /*縦横半分をネガティブマージンでずらす*/
-  position: absolute;     /*body要素に対して絶対配置*/
-  top: 50%;       /*上端を中央に*/
-  left: 50%;      /*左端を中央に*/
-  width: 600px;   /*横幅*/
-  height: 400px;  /*縦幅*/
-  text-align: center;
+.back a:hover{
+  color: #38352F;
 }
 
-.heading{
-  line-height: 400px;
-  font-size: 80px;
-  color: black;
+/*========= ページネーションCSS ===============*/
+
+.pagination {
+	position:fixed;
+	right:20px;
+	top: 50%;
+  transform: translateY(-50%);
+	font-size:2em;
+	z-index: 10;
+	list-style: none;
 }
 
-.heading:hover {
-  color: black;
+.pagination a {
+	display:block;
+	height:20px;
+	margin-bottom:20px;
+	color: #38352F;
+	position:relative;
+	padding:4px;
 }
 
-.heading:visited {
-  color: black;
+.pagination a.active:after {
+	box-shadow:inset 0 0 0 5px;
 }
+
+/*現在地表示のテキストの設定*/
+.pagination a .hover-text {
+	position:absolute;
+	right:15px;
+	top:0;
+	opacity:0;
+	-webkit-transition: opacity 0.5s ease;
+	transition: opacity 0.5s ease;
+	padding-right: 15px;
+}
+
+.pagination a:hover .hover-text {
+	opacity: 1;
+}
+
+.pagination a:after {
+	-webkit-transition:box-shadow 0.5s ease;
+	transition:box-shadow 0.5s ease;
+	width:10px;
+	height:10px;
+	display: block;
+	border:1px solid;
+	border-radius:50%;
+	content:"";
+	position: absolute;
+	margin:auto;
+	top:0;
+	right:3px;
+	bottom:0;
+}
+
+@media screen and (max-width:768px) { 
+	.pagination a .hover-text{
+		display: none;
+	}	
+}
+/* ーーーーーーーーーーーーーーーーーーーーー */
+
+
+/* タイピングアルファベット-------------- */
+.TextTyping span {
+	display: none;
+}
+
+/*文字列後ろの線の設定*/
+.TextTyping::after {
+ 	content: "|";
+	animation: typinganime .8s ease infinite;
+}
+
+
+@keyframes typinganime{
+	from{opacity:0}
+	to{opacity:1}
+}
+/* ---------------------------------------- */
