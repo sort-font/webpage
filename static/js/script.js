@@ -29,7 +29,6 @@ $.scrollify({
   }
 
 });
-// ーーーーーーーーーーーーーーーーーーーー
 
 // タイピングアルファベットーーーーーーーーーーーー
 // TextTypingというクラス名がついている子要素（span）を表示から非表示にする定義
@@ -82,7 +81,6 @@ $(window).on('load', function () {
 
   TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
 });// ここまで画面が読み込まれたらすぐに動かしたい場合の記述
-// ーーーーーーーーーーーーーーーーーーーーーーーーーー
 
 
 // トリミングーーーーーーーーーーーーーーーーーーーーーーー
@@ -113,7 +111,6 @@ var $image_crop = $('#preview').croppie({
   enableResize: true,
 });
 
-
 $("#crop_end").click(function (event) {
   $image_crop.croppie('result', {
       type: 'base64',
@@ -129,15 +126,3 @@ $("#crop_end").click(function (event) {
   })
 }
 );
-
-$(function(){
-	var scrollPosition;
-	$(".modalOpner").on("click", function() {
-		scrollPosition = $(window).scrollTop();
-		$('body').addClass('fixed').css({'top': -scrollPosition});
-	});
-	$(".modalCloser").on("click", function() {
-		$('body').removeClass('fixed').css({'top': 0});
-		window.scrollTo( 0 , scrollPosition );
-	});
-});
