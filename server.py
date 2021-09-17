@@ -62,7 +62,7 @@ def crop_image():
             img.save("./static/images/image.png")
             img = np.array(img)
             print("errorMessage")
-            a = request.form.getlist('is_gray_scale')
+            a = request.form['is_gray_scale']
             print(a)
 
             return render_template('index.html')
