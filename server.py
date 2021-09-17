@@ -93,15 +93,16 @@ def upload():
         print(traceback.format_exc())
         return render_template('result.html', fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
 
-@app.route('/enter',methods=['POST'])
+
+@app.route('/enter', methods=['POST'])
 def enter():
     enter = request.form.get('enter')
     if os.path.exists('enter.txt'):
-        with open("enter.txt", "a",encoding="utf-8") as f:
-            f.write("\n\n" + str(date.today()) +"\n" + enter)
+        with open("enter.txt", "a", encoding="utf-8") as f:
+            f.write("\n\n" + str(date.today()) + "\n" + enter)
     else:
-        with open("enter.txt", "w",encoding="utf-8") as f:
-            f.write(str(date.today()) +"\n" + enter)
+        with open("enter.txt", "w", encoding="utf-8") as f:
+            f.write(str(date.today()) + "\n" + enter)
     return render_template('enter.html', enter=enter)
 
 
