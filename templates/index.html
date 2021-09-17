@@ -39,7 +39,7 @@
                 <h1 class="black font_rock">フォント判定</h1>
                 <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST"
                     onsubmit="onloading()" name="upload_form">
-                    <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload"
+                    <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload" class="modalOpner"
                         style="background-color: #f2f4f6;">
 
                     <input type="number" name="display_num" required="required" maxlength="2" value="5"
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="actions">
-                    <div class="ui black deny button">
+                    <div class="ui black deny button modalCloser">
                         他の画像を選択する
                     </div>
                     <div class="ui positive right labeled icon button" id="crop_end">

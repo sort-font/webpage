@@ -130,3 +130,14 @@ $("#crop_end").click(function (event) {
 }
 );
 
+$(function(){
+	var scrollPosition;
+	$(".modalOpner").on("click", function() {
+		scrollPosition = $(window).scrollTop();
+		$('body').addClass('fixed').css({'top': -scrollPosition});
+	});
+	$(".modalCloser").on("click", function() {
+		$('body').removeClass('fixed').css({'top': 0});
+		window.scrollTo( 0 , scrollPosition );
+	});
+});
