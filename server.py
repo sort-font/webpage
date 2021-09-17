@@ -33,7 +33,8 @@ try:
 except Exception as e:
     print(e)
 
-img=0
+img = 0
+
 
 @app.route('/')
 def index():
@@ -41,16 +42,21 @@ def index():
 
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
 
+
 @app.route("/crop_image", methods=["POST"])
 def crop_image():
     global img
     try:
-        if request.method=="POST":
+        if request.method == "POST":
             # 画像として読み込み
             enc_data = request.form.getlist('croped_image')
             dec_data = base64.b64decode(enc_data[0].split(',')[1])
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+
+            img_resized = Image.fromarray(img).resize((64, 64))
+            img = np.array(img_resized)
+
             return render_template('index.html')
 
     except Exception as e:
@@ -59,13 +65,14 @@ def crop_image():
         print(traceback.format_exc())
         return render_template('index.html')
 
+
 @app.route('/upload', methods=['POST'])
 def upload():
     global img
     try:
         if request.files == None:
             return render_template('result.html', font_data_response=FontsDataResponse(None, "ファイルがアップロードされていません"))
-        else :
+        else:
             display_num = 5
             display_num_str = request.form["display_num"]
             if len(display_num_str) > 0 and int(display_num_str) > 0:
@@ -80,7 +87,7 @@ def upload():
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fonts_data_response=FontsDataResponse(fonts_data))
-    
+
     except Exception as e:
         print("error")
         print(e, file=sys.stderr)
