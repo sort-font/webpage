@@ -26,12 +26,9 @@ model_google = models.load_model('model/google_net')
 model_google.load_weights('model/google_net')
 
 def predict_font(img, display_num : int = 1):
-  IMG_SIZE = (64, 64, 3)
-  pil_image = Image.fromarray(img).convert("L")
-  img = np.array(pil_image)
-  im_resized = np.resize(img, IMG_SIZE).reshape(1, 64, 64, 3).astype("f")
-  pred_1= model.predict(im_resized)
-  im_resized_norm = im_resized /255
+  img = img.reshape(1, 64, 64, 3).astype("f")
+  pred_1= model.predict(img)
+  im_resized_norm = img /255
   pred_2 = model_google.predict(im_resized_norm)
   pred = (pred_1 + pred_2)/2
   try:

@@ -110,23 +110,46 @@ var $image_crop = $('#preview').croppie({
       width: 300,
       height: 300
   },
-  enableResize: true,
 });
 
-
 $("#crop_end").click(function (event) {
+  var is_gray_scale = $('.checkbox').checkbox("is checked");
+  console.log(is_gray_scale);
   $image_crop.croppie('result', {
-      type: 'base64',
-      size: "viewport",
+    type: 'base64',
+    size: "viewport",
+    
   }).then(function (response) {
-      $.ajax({
-          url: "/crop_image",
-          type: "POST",
-          data: { "croped_image": response },
-          success: function (data) {
-          }
-      });
+    console.log(is_gray_scale);
+    var data = {
+      "is_gray_scale": is_gray_scale,
+        "croped_image": response,
+    }
+    $.ajax({
+      url: "/crop_image",
+      type: "POST",
+      data: data ,
+      success: function () {
+        $('.ui.modal').modal('hide');
+
+      }
+    });
   })
 }
 );
 
+
+function clear_input() {
+  let obj = document.getElementById('upload');
+  obj.value = '';
+}
+
+window.onload = function () {
+  // ボタンを取得
+  let elmbtn = document.getElementById('select_again');
+  // クリックイベントを登録
+  elmbtn.onclick = function () {
+    clear_input();
+  };
+
+}
