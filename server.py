@@ -51,6 +51,10 @@ def crop_image():
             dec_data = base64.b64decode(enc_data[0].split(',')[1])
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+
+            img_resized = Image.fromarray(img).resize((64,64))
+            img = np.array(img_resized)
+
             return render_template('index.html')
 
     except Exception as e:
