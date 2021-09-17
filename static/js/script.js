@@ -113,7 +113,6 @@ var $image_crop = $('#preview').croppie({
   enableResize: true,
 });
 
-
 $("#crop_end").click(function (event) {
   $image_crop.croppie('result', {
       type: 'base64',
@@ -129,3 +128,4 @@ $("#crop_end").click(function (event) {
   })
 }
 );
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
