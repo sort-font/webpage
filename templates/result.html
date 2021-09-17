@@ -17,7 +17,87 @@
         <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
         {% endfor %}
       </div>
-      <button class="ui button yellow create_btn" type="button" id="open">FeedBackを送信する</button>
+      <div class="ui main container">
+        <button class="ui button yellow create_btn" type="button" id="open">FeedBackを送信する</button>
+        <div class="ui small modal my-modal">
+          <div class="header ">FeedBack</div>
+          <div class="content">
+            <table style="text-align:center">
+              <div class="ui form">
+                <div class="inline fields">
+                  <label>フォントが正しく判定できているか?</label>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" checked="checked" required>
+                      <label>良い</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" required>
+                      <label>少し良い</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" required>
+                      <label>少し悪い</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="frequency" required>
+                      <label>悪い</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <form action="" method="post">
+                <div class="ui form">
+                  <div class="inline fields">
+                    <label>このアプリの機能性はどうか?</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="frequency" checked="checked" required>
+                        <label>良い</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="frequency" required>
+                        <label>少し良い</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="frequency" required>
+                        <label>少し悪い</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="frequency" required>
+                        <label>悪い</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ui form">
+                  <div class="field">
+                    <label>何か改善点があれば記入をおねがいします.</label>
+                    <textarea></textarea>
+                  </div>
+                </div>
+              </form>
+            </table> その回答が私達の励みになります. </p>
+          </div>
+          <div class="actions">
+            <button id="cancel" class="ui grey deny button" title="Annulla">Cancel</button>
+            <button id="confirm" class="ui  blue deny button" title="Elimina">Confirm</button>
+          </div>
+        </div>
+      </div>
+
       <div class="back">
         <a href="/#Top" class="font_rock black">トップへ戻る</a>
         {% else %}
@@ -28,4 +108,19 @@
     </div>
   </div>
 </div>
+<script>
+  $(function () {
+    $("#open").click(function () {
+      $('.my-modal')
+        .modal({
+          closable: true,
+
+        })
+        .modal('show')
+    });
+    $("#confirm").click(function () {
+      document.getElementById("open").disabled = true;
+    });
+  });
+</script>
 {% endblock %}
