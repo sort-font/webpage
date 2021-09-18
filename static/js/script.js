@@ -108,8 +108,8 @@ $("#upload").on("change", function (e) {
 
 var $image_crop = $("#preview").croppie({
   viewport: {
-    width: 60,
-    height: 60,
+    width: 64,
+    height: 64,
   },
   boundary: {
     width: 300,
@@ -119,17 +119,46 @@ var $image_crop = $("#preview").croppie({
 });
 
 $("#crop_end").click(function (event) {
-  $image_crop
-    .croppie("result", {
-      type: "base64",
-      size: "viewport",
-    })
+
+  $image_crop.croppie("result", {
+    type: "base64",
+    size: "viewport",
+  })
     .then(function (response) {
+      var data
+      var is_gray_scale = $('.checkbox').checkbox("is checked");
+      if (is_gray_scale[0] == false) {
+        data = {
+          "is_gray_scale": 0,
+          "croped_image": response,
+        }
+      } else {
+        data = {
+          "is_gray_scale": 1,
+          "croped_image": response,
+        }
+      };
       $.ajax({
         url: "/crop_image",
         type: "POST",
-        data: { croped_image: response },
-        success: function (data) {},
+        data: data,
+        success: function (data) {
+          $('.ui.modal').modal('hide');
+        },
       });
     });
+
 });
+function clear_input() {
+  let obj = document.getElementById('upload');
+  obj.value = '';
+}
+
+window.onload = function () {
+  // ボタンを取得
+  let elmbtn = document.getElementById('select_again');
+  // クリックイベントを登録
+  elmbtn.onclick = function () {
+    clear_input();
+  };
+}
