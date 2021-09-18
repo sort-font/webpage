@@ -22,15 +22,17 @@ app = Flask(__name__, static_url_path="/static")
 class FontsDataResponse:
     def __init__(self, fonts_data: model.FontData, message: str = "") -> None:
         # font_dataが空ならOKではない
-        self.ok = fonts_data != None
+        self.ok = fonts_data is not None
         self.fonts_data = fonts_data
         self.message = message
+
 
 class EvalResponse:
     def __init__(self, enter: str, judge: str, func: str) -> None:
         self.enter = enter
         self.judge = judge
         self.func = func
+
 
 SAVE_DIR = "./static/images"
 # ディレクトリがなかったら作成するコードを追加
@@ -42,6 +44,7 @@ except Exception as e:
 
 img = 0
 is_gray_scale = 0
+
 
 @app.route('/')
 def index():
