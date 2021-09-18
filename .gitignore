@@ -146,3 +146,4 @@ cython_debug/
 
 *.png
 !docs/architecture.png
+enter.txt
