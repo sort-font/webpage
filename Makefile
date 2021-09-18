@@ -5,17 +5,14 @@ init:
 	python3 -m venv venv
 
 setup:
-	source ./venv/bin/activate
 	python3 -m pip install --upgrade pip
 	python3 -m pip install -r requirements.txt
 
-setup/powershell:
-	.\venv\bin\Activate.ps1
-	python -m pip install --upgrade pip
-	python -m pip install -r requirements.txt
-
 run:
 	python3 server.py
+
+test:
+	python3 -m pytest .
 
 clean:
 	rm -rf static/images/

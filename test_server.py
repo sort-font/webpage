@@ -13,9 +13,3 @@ def test_top(client):
 
     rv = client.get('/')
     assert b'sort font' in rv.data
-
-def test_index(client):
-    """ test index page """
-
-    rv = client.get('/index')
-    assert b'submit' in rv.data
