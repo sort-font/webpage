@@ -72,8 +72,8 @@ def crop_image():
             is_gray_scale = request.form.getlist('is_gray_scale')[0]
             if is_gray_scale == "1":
                 gray_img = Image.fromarray(img).convert("L")
-                img = np.array(gray_img)
-                img = np.concatenate([img, img, img], axis=0)
+                img = np.array(gray_img)[:,:,np.newaxis]
+                img = np.concatenate([img, img, img], axis=2)
 
             return render_template('index.html')
 
