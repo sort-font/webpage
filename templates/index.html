@@ -2,19 +2,21 @@
 {% block content %}
 
 <main>
-
     <section id="box1" class="box" data-section-name="Top">
         <ul class="pagination">
             <li><a class="active" href="#Top"><span class="hover-text">Top</span></a></li>
-            <li><a class="" href="#SortFont"><span class="hover-text">SortFont</span></a></li>
-            <li><a class="" href="#Data"><span class="hover-text">Data</span></a></li>
+            <li><a href="#SortFont"><span class="hover-text">SortFont</span></a></li>
+            <li><a href="#Data"><span class="hover-text">Data</span></a></li>
         </ul>
         <div>
-            <h1 class="top_heading TextTyping">Let's check the font!</h1>
+            <h1 class="top_heading TextTyping">Let's sort the font!</h1>
             <p class="sentence">このWebサイトは、「sort font」という様々な広告やウェブサイト等で気になったフォントの名前を教えてくれるアプリケーションです。</p>
+            <a href="https://github.com/sort-font/webpage/" target="_blank">
+                <i class="huge black github icon"></i>
+            </a>
         </div>
         <div class="ui raised very padded text container segment padding"
-            style="margin-top: 100px; background-color: #f2f4f6;">
+            style="margin-top: 10px; background-color: #f2f4f6;">
             <div class="black">
                 <h1 class="font_rock">使い方</h1>
                 <ol style="line-height: 40px;">
@@ -22,7 +24,7 @@
                     <li>「sort font」でその写真を選択しよう！</li>
                     <li>次の画面で<span class="red">　ひらがな　</span>か<span class="red">　カタカナ　</span>の部分を一文字だけ切り取ろう！</li>
                     <li>何番目までフォントを予測するのか指定しよう！</li>
-                    <li>submitを押して結果を見よう！</li>
+                    <li>「判定！」を押して結果を見よう！</li>
                 </ol>
             </div>
         </div>
@@ -31,7 +33,7 @@
     <section id="box2" class="box" data-section-name="SortFont">
         <!--data-section-nameはページネーションを表示させた際、現在地に現れるテキスト-->
         <div>
-            <h1 class="top_heading TextTyping">Let's check the font!</h1>
+            <h1 class="top_heading TextTyping">Let's sort the font!</h1>
             <p class="sentence">このWebサイトは、「sort font」という様々な広告やウェブサイト等で気になったフォントの名前を教えてくれるアプリケーションです。</p>
         </div>
         <div class="ui raised very padded text container segment padding"
@@ -40,12 +42,12 @@
                 <h1 class="black font_rock">フォント判定</h1>
                 <form class="ui action input" enctype="multipart/form-data" action="/upload" method="POST"
                     onsubmit="onloading()" name="upload_form">
-                    <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload" class="modalOpner"
-                        style="background-color: #f2f4f6;">
+                    <input type="file" name="image" required="required" accept="image/png, image/jpeg" id="upload"
+                        class="modalsort" style="background-color: #f2f4f6;">
 
-                    <input type="number" name="display_num" required="required" maxlength="2" value="5"
-                        placeholder="表示する候補数" step="1" style="background-color: #f2f4f6;">
-                    <button type="submit" class="ui teal button">submit</button>
+                    <input type="number" name="display_num" required="required" maxlength="2" placeholder="表示する候補数"
+                        step="1" style="background-color: #f2f4f6;">
+                    <button type="submit" class="ui teal button">判定！</button>
                 </form>
             </div>
 
@@ -75,11 +77,10 @@
     </section>
     <section id="box3" class="box" data-section-name="Data">
         <div>
-            <h1 class="top_heading TextTyping">Let's check the font!</h1>
+            <h1 class="top_heading TextTyping">Let's sort the font!</h1>
             <p class="sentence">このWebサイトは、「sort font」という様々な広告やウェブサイト等で気になったフォントの名前を教えてくれるアプリケーションです。</p>
         </div>
         {% if images %}
-
         <div class="ui center aligned segment" style="margin: 50px 100px; background-color: #f2f4f6;">
             <h1 class="black font_rock">過去に判定されたフォント集</h1>
             <div class="ui link centered cards">
@@ -99,22 +100,18 @@
                             </a>
                         </div>
                     </a>
-                    <a href="/static/images/{{ path }}" download="" class="ui basic violet button"><i
-                            class="download icon"></i>download</a>
+                    <a href="/static/images/{{ path }}" download="" class="ui basic violet button">
+                        <i class="download icon"></i>download
+                    </a>
                 </div>
                 {% endif %}
                 {% endfor %}
             </div>
-            {% endif %}
         </div>
-
-
+        {% endif %}
     </section>
 
 </main>
-
-
-
 <!--自作のJS-->
 <script src="static/js/script.js"></script>
 {% endblock %}

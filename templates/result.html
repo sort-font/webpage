@@ -12,20 +12,20 @@
     <div class="ui relaxed list" style="margin-bottom: 30px; line-height: 30px;">
       {% for font_data in fonts_data_response.fonts_data %}
       <div class="item">{{ loop.index }}番目: {{ font_data.name }}
-        ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%) 
+        ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%)
       </div>
       <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
       {% endfor %}
     </div>
     <div class="back">
       <a href="/#Top" class="font_rock black">トップへ戻る</a>
-      {% else %}
+    </div>
+    {% else %}
+    <div class="back">
       <h1>{{ fonts_data_response.message }}</h1>
       <a href="/#Top" class="font_rock black">トップへ戻る</a>
-
-      {% endif %}
-
     </div>
+    {% endif %}
     <form class="ui fullscreen modal" action="/enter" method="POST">
       <i class="close icon"></i>
       <div class="header" method="post">
@@ -37,27 +37,28 @@
             <label>お問い合わせ内容</label>
             <textarea name="enter" placeholder="お問い合わせ内容を入力してください"></textarea>
           </div>
-          <div class="field" >
+          <div class="field">
           </div>
         </div>
       </div>
       <div class="ui center aligned segment">
-          <button type="submit" class="ui right button">送信</button>
+        <button type="submit" class="ui right button">送信</button>
       </div>
     </form>
     <div class="ui center aligned segment">
       <div class="ui  right  icon button" id="application-form">
-          お問い合わせフォーム
+        お問い合わせフォーム
         <script>
-                  $("#application-form").click((e) => {
-                      $('.fullscreen.modal')
-                      .modal({allowMultiple: false})
-        .modal('show')
-      ;
-                  });
+          $("#application-form").click((e) => {
+            $('.fullscreen.modal')
+              .modal({
+                allowMultiple: false
+              })
+              .modal('show');
+          });
         </script>
-        </div>
       </div>
+    </div>
   </div>
 </div>
 {% endblock %}
