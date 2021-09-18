@@ -22,8 +22,42 @@
       {% else %}
       <h1>{{ fonts_data_response.message }}</h1>
       <a href="/#Top" class="font_rock black">トップへ戻る</a>
+
       {% endif %}
+
     </div>
+    <form class="ui fullscreen modal" action="/enter" method="POST">
+      <i class="close icon"></i>
+      <div class="header" method="post">
+        お問い合わせフォーム
+      </div>
+      <div class="content">
+        <div class="ui form">
+          <div class="field">
+            <label>お問い合わせ内容</label>
+            <textarea name="enter" placeholder="お問い合わせ内容を入力してください"></textarea>
+          </div>
+          <div class="field" >
+          </div>
+        </div>
+      </div>
+      <div class="ui center aligned segment">
+          <button type="submit" class="ui right button">送信</button>
+      </div>
+    </form>
+    <div class="ui center aligned segment">
+      <div class="ui  right  icon button" id="application-form">
+          お問い合わせフォーム
+        <script>
+                  $("#application-form").click((e) => {
+                      $('.fullscreen.modal')
+                      .modal({allowMultiple: false})
+        .modal('show')
+      ;
+                  });
+        </script>
+        </div>
+      </div>
   </div>
 </div>
 {% endblock %}
