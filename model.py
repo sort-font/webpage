@@ -25,7 +25,7 @@ model.load_weights('model/alex_net/param.hdf5')
 model_google = models.load_model('model/google_net')
 model_google.load_weights('model/google_net')
 
-def predict_font(img, display_num : int = 1):
+def predict_font(img, display_num : int = 1 ):
   img = img.reshape(1, 64, 64, 3).astype("f")
   pred_1= model.predict(img)
   im_resized_norm = img /255

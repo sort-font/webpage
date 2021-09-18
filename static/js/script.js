@@ -103,8 +103,8 @@ $('#upload').on('change', function (e) {
 
 var $image_crop = $('#preview').croppie({
   viewport: {
-      width: 60,
-      height: 60
+      width: 64,
+      height: 64
   },
   boundary: {
       width: 300,
@@ -118,20 +118,26 @@ $("#crop_end").click(function (event) {
   $image_crop.croppie('result', {
     type: 'base64',
     size: "viewport",
-    
+
   }).then(function (response) {
     console.log(is_gray_scale);
-    var data = {
-      "is_gray_scale": is_gray_scale,
+    if (is_gray_scale[0] == false) {
+      var data = {
+        "is_gray_scale": 0,
         "croped_image": response,
+      }
+    } else {
+      var data = {
+        "is_gray_scale": 1,
+        "croped_image": response,
+      }
     }
     $.ajax({
       url: "/crop_image",
       type: "POST",
-      data: data ,
+      data: data,
       success: function () {
         $('.ui.modal').modal('hide');
-
       }
     });
   })

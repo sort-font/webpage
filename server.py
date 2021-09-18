@@ -34,6 +34,7 @@ except Exception as e:
     print(e)
 
 img=0
+is_gray_scale=0
 
 @app.route('/')
 def index():
@@ -44,6 +45,7 @@ def index():
 @app.route("/crop_image", methods=["POST"])
 def crop_image():
     global img
+    global is_gray_scale
     try:
         if request.method=="POST":
             # 画像として読み込み
@@ -52,19 +54,16 @@ def crop_image():
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR) #array
             img_resized = Image.fromarray(img).resize((64,64))
-            img_resized = np.array(img_resized)
+            img = np.array(img_resized)   
+            is_gray_scale = request.form.getlist('is_gray_scale')[0]
+            print(type(is_gray_scale))
+            if is_gray_scale =="1":
+                gray_img = Image.fromarray(img).convert("L")
+                img = np.array(gray_img)
+                img = np.concatenate([img, img, img] ,axis=0)
+                print("gray")
+                
             
-            gray_img = np.copy(img_resized)
-            gray_img = Image.fromarray(gray_img).convert("L")
-
-            gray_img.save("./static/images/gray_image.png")
-            img = Image.fromarray(img_resized)  
-            img.save("./static/images/image.png")
-            img = np.array(img)
-            print("errorMessage")
-            a = request.form['is_gray_scale']
-            print(a)
-
             return render_template('index.html')
 
     except Exception as e:
@@ -77,6 +76,7 @@ def crop_image():
 @app.route('/upload', methods=['POST'])
 def upload():
     global img
+    global is_gray_scale
     try:
         if request.files == None:
             return render_template('result.html', font_data_response=FontsDataResponse(None, "ファイルがアップロードされていません"))
