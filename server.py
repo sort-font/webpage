@@ -36,7 +36,7 @@ except Exception as e:
     print(e)
 
 img = 0
-is_gray_scale　=　0
+is_gray_scale = 0
 
 @app.route('/')
 def index():
@@ -73,7 +73,7 @@ def crop_image():
             if is_gray_scale == "1":
                 gray_img = Image.fromarray(img).convert("L")
                 img = np.array(gray_img)
-                img = np.concatenate([img, img, img] , axis=0)
+                img = np.concatenate([img, img, img], axis=0)
 
             return render_template('index.html')
 
