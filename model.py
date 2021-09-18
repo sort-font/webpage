@@ -19,7 +19,7 @@ with open("model/font_list.pkl", "rb") as f:
     for idx, name in enumerate(list_row):
         list_row[idx] = list_row[idx][:list_row[idx].find(".")]
 
-with open("model//alex_net/model.json", 'r') as f:
+with open("model/alex_net/model.json", 'r') as f:
     json_string = f.read()
 model = model_from_json(json_string)
 
