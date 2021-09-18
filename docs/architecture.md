@@ -1,6 +1,8 @@
 ## sort-fontのアーキテクチャ
 sort-fontはフロントエンド及びサーバエンドがPythonで完結しています。
 
+![architecture.png](./architecture.png)
+
 ユーザがページにアクセスすると、`server.py` で定義された `@app.route()`の定義に従ってルーティングが行われます。
 現在のルーティングルールは大きく分けて3つです。
 

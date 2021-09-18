@@ -12,6 +12,7 @@
 ## アプリケーション構成
 本アプリケーションは、Flaskでファイルをサーブし、フォントの判定にはKerasを用いる構成です。アプリケーションでのデータの流れや各ディレクトリの詳細は、[architecture.md](./docs/architecture.md)をご確認ください。
 
+![architecture.png](./docs/architecture.png)
 
 ## 言語・ライブラリ等
 - Python3
