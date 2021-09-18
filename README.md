@@ -1,34 +1,17 @@
 # sort-font
 このアプリケーションは、入力された文字画像に使われているフォントと似ているフォントを提示するアプリケーションです。
 
-![demo.gif](./assets/demo.gif)
+![demo.gif](./docs/demo.gif)
 
-## 実行方法
-- 本アプリケーションでは `Make` コマンドの利用を推奨します
+## 開発環境のセットアップ方法
+本アプリケーションは、ローカルでの起動とDockerコンテナを用いた軌道が可能です。
+実行すべきコマンドや設定方法の詳細は、[setup.md](./docs/setup.md)をご確認ください。
 
-### ローカルで実行する場合
-#### Setup
-```bash
-make init
-```
+## アプリケーション構成
+本アプリケーションは、Flaskでファイルをサーブし、フォントの判定にはKerasを用いる構成です。アプリケーションでのデータの流れや各ディレクトリの詳細は、[architecture.md](./docs/architecture.md)をご確認ください。
 
-#### Linux/Mac
-```bash
-make setup
-```
-
-#### Windows(Powershell)
-```powershell
-make setup/powershell
-```
-
-### Dockerで実行する場合
-```bash
-make docker/build
-make docker/run
-```
 
 ## 言語・ライブラリ等
 - Python3
   - [requirements.txt](./requirements.txt)
-- HTML/CSS
+- HTML/CSS/JavaScript
