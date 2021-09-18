@@ -1,18 +1,63 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="ui center aligned segment">
-  <h1>判定結果</h1>
-  {% if fonts_data_response.ok %}
-    <div class="ui relaxed list">
-    {% for font_data in fonts_data_response.fonts_data %}
-    <div class="item">{{ loop.index }}番目: {{ font_data.name }} ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%) </div>
-    <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
-    {% endfor %}
+
+<div>
+  <h1 class="top_heading">Thank you for using this application!</h1>
+  <p class="sentence">よかったらレビュー書いてくれると嬉しいかも。</p>
+</div>
+<div class="black">
+  <div class="ui center aligned segment raised very padded text container segment padding" style="margin-top: 50px;">
+    <h1 class="font_rock">判定結果</h1>
+    {% if fonts_data_response.ok %}
+    <div class="ui relaxed list" style="margin-bottom: 30px; line-height: 30px;">
+      {% for font_data in fonts_data_response.fonts_data %}
+      <div class="item">{{ loop.index }}番目: {{ font_data.name }}
+        ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%)
+      </div>
+      <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
+      {% endfor %}
     </div>
-  <a href="./">トップへ戻る</a>
-  {% else %}
-  <h1>{{ fonts_data_response.message }}</h1>
-  <a href="./">トップへ戻る</a>
-  {% endif %}
+    <div class="back">
+      <a href="/#Top" class="font_rock black">トップへ戻る</a>
+    </div>
+    {% else %}
+    <div class="back">
+      <h1>{{ fonts_data_response.message }}</h1>
+      <a href="/#Top" class="font_rock black">トップへ戻る</a>
+    </div>
+    {% endif %}
+    <form class="ui fullscreen modal" action="/enter" method="POST">
+      <i class="close icon"></i>
+      <div class="header" method="post">
+        レビュー・お問い合わせ
+      </div>
+      <div class="content">
+        <div class="ui form">
+          <div class="field">
+            <textarea name="enter" placeholder="レビュー・お問い合わせ内容を入力してください"></textarea>
+          </div>
+          <div class="field">
+          </div>
+        </div>
+      </div>
+      <div class="ui center aligned segment">
+        <button type="submit" class="ui right button">送信</button>
+      </div>
+    </form>
+    <div class="ui center aligned segment">
+      <div class="ui  right  icon button" id="application-form">
+          レビュー・お問い合わせ
+        <script>
+          $("#application-form").click((e) => {
+            $('.fullscreen.modal')
+              .modal({
+                allowMultiple: false
+              })
+              .modal('show');
+          });
+        </script>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
