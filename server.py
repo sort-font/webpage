@@ -36,6 +36,7 @@ except Exception as e:
 
 img = 0
 
+
 @app.route('/')
 def index():
     """
@@ -45,9 +46,11 @@ def index():
     # queryで表示数を変更することもできる実装にしておいた
     PREVIEW_NUM = 12
     return render_template('index.html',
-        images=random.choices(os.listdir(SAVE_DIR), k=PREVIEW_NUM))
+                           images=random.choices(os.listdir(SAVE_DIR), k=PREVIEW_NUM))
 
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
+
+
 @app.route("/crop_image", methods=["POST"])
 def crop_image():
     """
@@ -82,8 +85,7 @@ def upload():
     global img
     try:
         if request.files == None:
-            return render_template('result.html',
-                font_data_response=FontsDataResponse(None, "ファイルがアップロードされていません"))
+            return render_template('result.html', font_data_response=FontsDataResponse(None, "ファイルがアップロードされていません"))
         else:
             display_num = 5
             display_num_str = request.form["display_num"]
@@ -93,8 +95,7 @@ def upload():
             fonts_data = model.predict_font(img, display_num)
 
             if fonts_data == None:
-                return render_template('result.html', 
-                    fonts_data_response=FontsDataResponse(None, '該当するフォントがありませんでした'))
+                return render_template('result.html', fonts_data_response=FontsDataResponse(None, '該当するフォントがありませんでした'))
 
             # ファイル名の先頭で最も確率の高かったフォント名を保持しておく
             cv2.imwrite(os.path.join(
@@ -105,8 +106,7 @@ def upload():
         print("error")
         print(e, file=sys.stderr)
         print(traceback.format_exc())
-        return render_template('result.html',
-            fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
+        return render_template('result.html', fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
 
 
 @app.context_processor
