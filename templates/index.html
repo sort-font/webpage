@@ -56,7 +56,22 @@
                 <div class="header">
                     画像を切り取ってください
                 </div>
-                <div class="image content">
+                <div class="image content" style="display: flex;">
+                    <div class="container segment">
+                        <h3 style="color:black;">以下のようにトリミングするのが望ましいです。</h3>
+                        <ul class="ui list" style="display: inline-block; font-size: 14px;">
+                            <li style="color:black;"> 白地に黒文字の画像を選択してください。</li>
+                            <li style="color:black;"> １文字分だけトリミングしてください。</li>
+                            <li style="color:black;"> ひらがな、カタカナを切り取ってください。</li>
+                        </ul>
+                        
+                    </div>
+    
+                    <div class = "container segment center">
+                        <h4 class="center padding" style="color:black;">&nbsp;&nbsp;&nbsp;画像の拡大縮小は下のバーを操作しても行えます。 </h4>
+    
+                        <img id="preview">
+                    </div>
                     <div class="description">
                         <div class="ui header"></div>
                         <img id="preview">
