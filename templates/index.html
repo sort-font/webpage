@@ -62,11 +62,18 @@
                         <img id="preview">
                     </div>
                 </div>
+                <div class="ui left floated compact segment">
+                    <div class="ui fitted checkbox">
+                        <input type="checkbox" id = "is_gray_scale" class="checkbox">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;切り取るフォントが白黒でない場合にチェックを入れてください。 </label>
+                    </div>
+                </div>
+
                 <div class="actions">
-                    <div class="ui black deny button modalCloser">
+                    <div class="ui black deny button modalCloser"  id ="select_again">
                         他の画像を選択する
                     </div>
-                    <div class="ui positive right labeled icon button" id="crop_end">
+                    <div class="ui teal basic button" id="crop_end">
                         決定
                         <i class="checkmark icon"></i>
                     </div>

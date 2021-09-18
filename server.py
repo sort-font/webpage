@@ -35,7 +35,7 @@ except Exception as e:
     print(e)
 
 img = 0
-
+is_gray_scale=0
 
 @app.route('/')
 def index():
@@ -57,6 +57,7 @@ def crop_image():
     切り抜いたフォントを取得する関数
     """
     global img
+    global is_gray_scale
     try:
         if request.method == "POST":
             # 画像として読み込み
@@ -66,7 +67,12 @@ def crop_image():
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
 
             img_resized = Image.fromarray(img).resize((64, 64))
-            img = np.array(img_resized)
+            img = np.array(img_resized)   
+            is_gray_scale = request.form.getlist('is_gray_scale')[0]
+            if is_gray_scale =="1":
+                gray_img = Image.fromarray(img).convert("L")
+                img = np.array(gray_img)
+                img = np.concatenate([img, img, img] ,axis=0)
 
             return render_template('index.html')
 
