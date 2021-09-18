@@ -17,12 +17,15 @@
             <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
             {% endfor %}
         </div>
-        {% endif %}
         <div class="back">
             <a href="/#Top" class="font_rock black">トップへ戻る</a>
+        </div>
+        {% else %}
+        <div class="back">
             <h1>{{ fonts_data_response.message }}</h1>
             <a href="/#Top" class="font_rock black">トップへ戻る</a>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
