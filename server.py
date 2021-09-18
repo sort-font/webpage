@@ -11,6 +11,7 @@ import uuid
 import traceback
 import model
 import base64
+import random
 from io import BytesIO
 from PIL import Image
 
@@ -38,13 +39,23 @@ img = 0
 
 @app.route('/')
 def index():
-    return render_template('index.html', images=os.listdir(SAVE_DIR)[::-1])
+    """
+    過去の判定画像をランダムに PREVIEW_NUM 件返す関数
+    """
+
+    # queryで表示数を変更することもできる実装にしておいた
+    PREVIEW_NUM = 12
+    return render_template('index.html',
+                           images=random.choices(os.listdir(SAVE_DIR), k=PREVIEW_NUM))
 
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
 
 
 @app.route("/crop_image", methods=["POST"])
 def crop_image():
+    """
+    切り抜いたフォントを取得する関数
+    """
     global img
     try:
         if request.method == "POST":
@@ -68,6 +79,9 @@ def crop_image():
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    """
+    ユーザから受け取った画像を用いて、フォントの判定を行う関数
+    """
     global img
     try:
         if request.files == None:
@@ -81,7 +95,7 @@ def upload():
             fonts_data = model.predict_font(img, display_num)
 
             if fonts_data == None:
-                return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
+                return render_template('result.html', fonts_data_response=FontsDataResponse(None, '該当するフォントがありませんでした'))
 
             # ファイル名の先頭で最も確率の高かったフォント名を保持しておく
             cv2.imwrite(os.path.join(
