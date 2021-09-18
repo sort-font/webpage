@@ -4,20 +4,29 @@
 ![demo.gif](./assets/demo.gif)
 
 ## 実行方法
-### Windows
-```powershell
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python server.py
-```
-### Linux/Mac
+### ローカルで実行する場合
+#### Setup
 ```bash
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-python3 server.py
+make init
+```
+
+#### Linux/Mac
+```bash
+make setup
+```
+
+#### Windows(Powershell)
+```powershell
+make setup/powershell
+```
+
+### Dockerで実行する場合
+```bash
+make docker/build
+make docker/run
 ```
 
 ## 言語・ライブラリ等
-- Python
+- Python3
   - [requirements.txt](./requirements.txt)
 - HTML/CSS
