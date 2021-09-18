@@ -67,9 +67,9 @@ def crop_image():
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
 
             img_resized = Image.fromarray(img).resize((64, 64))
-            img = np.array(img_resized)   
+            img = np.array(img_resized)
             is_gray_scale = request.form.getlist('is_gray_scale')[0]
-            if is_gray_scale =="1":
+            if is_gray_scale == "1":
                 gray_img = Image.fromarray(img).convert("L")
                 img = np.array(gray_img)
                 img = np.concatenate([img, img, img] ,axis=0)
