@@ -11,8 +11,10 @@ import uuid
 import traceback
 import model
 import base64
+import random
 from io import BytesIO
 from PIL import Image
+from datetime import date
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -33,24 +35,46 @@ try:
 except Exception as e:
     print(e)
 
-img=0
+img = 0
+is_gray_scale = 0
 
 @app.route('/')
 def index():
-    return render_template('index.html', images=os.listdir(SAVE_DIR)[::-1])
+    """
+    過去の判定画像をランダムに PREVIEW_NUM 件返す関数
+    """
+
+    # queryで表示数を変更することもできる実装にしておいた
+    PREVIEW_NUM = 12
+    return render_template('index.html',
+                           images=random.choices(os.listdir(SAVE_DIR), k=PREVIEW_NUM))
 
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
 
+
 @app.route("/crop_image", methods=["POST"])
 def crop_image():
+    """
+    切り抜いたフォントを取得する関数
+    """
     global img
+    global is_gray_scale
     try:
-        if request.method=="POST":
+        if request.method == "POST":
             # 画像として読み込み
             enc_data = request.form.getlist('croped_image')
             dec_data = base64.b64decode(enc_data[0].split(',')[1])
             img_np = np.frombuffer(dec_data, np.uint8)
             img = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+
+            img_resized = Image.fromarray(img).resize((64, 64))
+            img = np.array(img_resized)
+            is_gray_scale = request.form.getlist('is_gray_scale')[0]
+            if is_gray_scale == "1":
+                gray_img = Image.fromarray(img).convert("L")
+                img = np.array(gray_img)
+                img = np.concatenate([img, img, img], axis=0)
+
             return render_template('index.html')
 
     except Exception as e:
@@ -59,13 +83,17 @@ def crop_image():
         print(traceback.format_exc())
         return render_template('index.html')
 
+
 @app.route('/upload', methods=['POST'])
 def upload():
+    """
+    ユーザから受け取った画像を用いて、フォントの判定を行う関数
+    """
     global img
     try:
         if request.files == None:
             return render_template('result.html', font_data_response=FontsDataResponse(None, "ファイルがアップロードされていません"))
-        else :
+        else:
             display_num = 5
             display_num_str = request.form["display_num"]
             if len(display_num_str) > 0 and int(display_num_str) > 0:
@@ -74,18 +102,30 @@ def upload():
             fonts_data = model.predict_font(img, display_num)
 
             if fonts_data == None:
-                return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
+                return render_template('result.html', fonts_data_response=FontsDataResponse(None, '該当するフォントがありませんでした'))
 
             # ファイル名の先頭で最も確率の高かったフォント名を保持しておく
             cv2.imwrite(os.path.join(
                 SAVE_DIR, fonts_data[0].name + '_' + str(uuid.uuid4()) + '.png'), img)
             return render_template('result.html', fonts_data_response=FontsDataResponse(fonts_data))
-    
+
     except Exception as e:
         print("error")
         print(e, file=sys.stderr)
         print(traceback.format_exc())
         return render_template('result.html', fonts_data_response=FontsDataResponse(None, '内部的なエラーが発生しました'))
+
+
+@app.route('/enter', methods=['POST'])
+def enter():
+    enter = request.form.get('enter')
+    if os.path.exists('enter.txt'):
+        with open("enter.txt", "a", encoding="utf-8") as f:
+            f.write("\n\n" + str(date.today()) + "\n" + enter)
+    else:
+        with open("enter.txt", "w", encoding="utf-8") as f:
+            f.write(str(date.today()) + "\n" + enter)
+    return render_template('enter.html', enter=enter)
 
 
 @app.context_processor
