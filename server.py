@@ -81,7 +81,7 @@ def upload():
             fonts_data = model.predict_font(img, display_num)
 
             if fonts_data == None:
-                return render_template('result.html', fonts_data_response=FontsDataResponse(None, 'エラーが起きてしまって、フォントを特定できませんでした、、申し訳ない。'))
+                return render_template('result.html', fonts_data_response=FontsDataResponse(None, '該当するフォントがありませんでした'))
 
             # ファイル名の先頭で最も確率の高かったフォント名を保持しておく
             cv2.imwrite(os.path.join(
