@@ -1,4 +1,6 @@
 # sort-font
+![CI](https://github.com/sort-font/webpage/workflows/CI/badge.svg)
+
 このアプリケーションは、入力された文字画像に使われているフォントと似ているフォントを提示するアプリケーションです。
 
 ![demo.gif](./docs/demo.gif)
