@@ -35,10 +35,13 @@ class EvalResponse:
 
 
 SAVE_DIR = "./static/images"
+FONT_DIR = "./static/previews"
 # ディレクトリがなかったら作成するコードを追加
 try:
     if not os.path.exists(SAVE_DIR):
         os.makedirs(SAVE_DIR)
+    if not os.path.exists(FONT_DIR):
+        os.makedirs(FONT_DIR)
 except Exception as e:
     print(e)
 
@@ -58,8 +61,6 @@ def index():
                            images=random.choices(os.listdir(SAVE_DIR), k=PREVIEW_NUM))
 
 # 参考: https://qiita.com/yuuuu3/items/6e4206fdc8c83747544b
-
-
 @app.route("/crop_image", methods=["POST"])
 def crop_image():
     """
