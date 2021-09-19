@@ -13,7 +13,7 @@
       {% for font_data in fonts_data_response.fonts_data %}
       <div class="item">{{ loop.index }}番目: {{ font_data.name }}
         ({{ (font_data.probability * 100.0)|round(2, 'floor') }}%)
-        <img src="/static/previews/{{ font_data.name }}.png">
+        <img src="/static/previews/{{ font_data.name }}.png" width="32" height="32">
       </div>
       <a href="https://www.google.com/search?q={{ font_data.name }}">フォントの詳細</a>
       {% endfor %}
