@@ -20,11 +20,18 @@ app = Flask(__name__, static_url_path="/static")
 
 
 class FontsDataResponse:
-  def __init__(self, fonts_data: model.FontData, message: str = "") -> None:
-    # font_dataが空ならOKではない
-    self.ok = fonts_data != None
-    self.fonts_data = fonts_data
-    self.message = message
+    def __init__(self, fonts_data: model.FontData, message: str = "") -> None:
+        # font_dataが空ならOKではない
+        self.ok = fonts_data is not None
+        self.fonts_data = fonts_data
+        self.message = message
+
+
+class EvalResponse:
+    def __init__(self, enter: str, judge: str, func: str) -> None:
+        self.enter = enter
+        self.judge = judge
+        self.func = func
 
 
 SAVE_DIR = "./static/images"
@@ -37,6 +44,7 @@ except Exception as e:
 
 img = 0
 is_gray_scale = 0
+
 
 @app.route('/')
 def index():
@@ -119,13 +127,15 @@ def upload():
 @app.route('/enter', methods=['POST'])
 def enter():
     enter = request.form.get('enter')
+    judge = request.form.get('judge')
+    func = request.form.get('func')
     if os.path.exists('enter.txt'):
         with open("enter.txt", "a", encoding="utf-8") as f:
-            f.write("\n\n" + str(date.today()) + "\n" + enter)
+            f.write(f"\n\n{str(date.today())}\n{enter}, {judge}, {func}")
     else:
         with open("enter.txt", "w", encoding="utf-8") as f:
-            f.write(str(date.today()) + "\n" + enter)
-    return render_template('enter.html', enter=enter)
+            f.write(f"\n\n{str(date.today())}\n{enter}, {judge}, {func}")
+    return render_template('enter.html', eval=EvalResponse(enter, judge, func))
 
 
 @app.context_processor

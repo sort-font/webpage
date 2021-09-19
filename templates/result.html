@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<div>
+<div class="ui main container">
   <h1 class="top_heading">Thank you for using this application!</h1>
   <p class="sentence">よかったらレビュー書いてくれると嬉しいかも。</p>
 </div>
@@ -33,20 +32,48 @@
       </div>
       <div class="content">
         <div class="ui form">
+          <div class="inline fields">
+            <label>フォントが正しく判定できているか?</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="judge" checked="checked" value="o" required>
+                <label>良い</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="judge" value="x" required>
+                <label>悪い</label>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <label>このアプリの機能性はどうか?</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="func" checked="checked" value="o" required>
+                <label>良い</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="func" value="x" required>
+                <label>悪い</label>
+              </div>
+            </div>
+          </div>
           <div class="field">
             <textarea name="enter" placeholder="レビュー・お問い合わせ内容を入力してください"></textarea>
           </div>
-          <div class="field">
-          </div>
         </div>
-      </div>
-      <div class="ui center aligned segment">
-        <button type="submit" class="ui right button">送信</button>
+        <div class="ui center aligned segment">
+          <button type="submit" class="ui right button">送信</button>
+        </div>
       </div>
     </form>
     <div class="ui center aligned segment">
       <div class="ui  right  icon button" id="application-form">
-          レビュー・お問い合わせ
+        レビュー・お問い合わせ
         <script>
           $("#application-form").click((e) => {
             $('.fullscreen.modal')
@@ -60,4 +87,18 @@
     </div>
   </div>
 </div>
+<script>
+  $(function () {
+    $("#open").click(function () {
+      $('.my-modal')
+        .modal({
+          closable: true,
+        })
+        .modal('show')
+    });
+    $("#confirm").click(function () {
+      document.getElementById("open").disabled = true;
+    });
+  });
+</script>
 {% endblock %}

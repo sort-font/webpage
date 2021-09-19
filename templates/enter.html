@@ -3,8 +3,14 @@
 <div class="ui raised very padded text container segment padding" style="margin-top: 100px;">
   <div class="ui center aligned segment">
     <h1 class="black font_rock">送信完了</h1>
-      <div class="ui left aligned segment">
-        <h5 class="black">入力内容：{{ enter }}</h5>
+      <div class="ui left aligned segment black">
+        <h5>入力内容</h5>
+        <ul>
+          <li>判定結果: {{ eval.judge }}</li>
+          <li>操作性: {{ eval.func }}</li>
+          <li>コメント: {{ eval.enter }}</li>
+        </ul>
+        貴重なフィードバックをありがとうございました！
         <div class="ui center aligned segment">
           <a href="/#Top" class="font_rock black">トップへ戻る</a>
         </div>

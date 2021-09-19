@@ -141,5 +141,8 @@ footer {
 		opacity: 1
 	}
 }
-
-/* ---------------------------------------- */
+/*FeedBack*/
+.ui.container {
+  width: 1400px;
+  margin: 0 auto;
+}
